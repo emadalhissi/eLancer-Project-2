@@ -10,6 +10,7 @@ import 'package:elancer_project_2/screens/launch_screen.dart';
 import 'package:elancer_project_2/screens/auth/login_screen.dart';
 import 'package:elancer_project_2/screens/main_screen.dart';
 import 'package:elancer_project_2/screens/outboarding/out_boarding_screen.dart';
+import 'package:elancer_project_2/screens/product_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -51,6 +52,7 @@ class _MyAppState extends State<MyApp> {
           '/menu_screen': (context) => const MenuScreen(),
           //-------------------------------OTHERS-------------------------------------
           '/forget_password_screen': (context) => const ForgetPasswordScreen(),
+          '/product_screen': (context) => const ProductScreen(),
         },
       ),
     );

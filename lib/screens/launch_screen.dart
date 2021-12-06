@@ -1,3 +1,4 @@
+import 'package:elancer_project_2/shared_preferences/shared_preferences_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -13,8 +14,9 @@ class _LaunchScreenState extends State<LaunchScreen> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(Duration(seconds: 3), (){
-      Navigator.pushReplacementNamed(context, '/out_boarding_screen');
+    Future.delayed(const Duration(seconds: 3), (){
+      String route = SharedPreferencesController().loggedIn ? '/main_screen' : '/login_screen';
+      Navigator.pushReplacementNamed(context, route);
     });
   }
   @override

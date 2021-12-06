@@ -12,6 +12,7 @@ class MenuScreen extends StatefulWidget {
 }
 
 class _MenuScreenState extends State<MenuScreen> {
+
   final privacyPolicyLink = 'https://smart-store.mr-dev.tech/privacy-policy';
 
   @override
@@ -31,8 +32,7 @@ class _MenuScreenState extends State<MenuScreen> {
                 onTab: () {
                   Navigator.pushNamed(
                     context,
-                    '',
-                    // TODO: add navigator to profile screen
+                    '/profile_screen',
                   );
                 },
               ),
@@ -42,8 +42,7 @@ class _MenuScreenState extends State<MenuScreen> {
                 onTab: () {
                   Navigator.pushNamed(
                     context,
-                    '',
-                    // TODO: add navigator to notifications screen
+                    '/notifications_screen',
                   );
                 },
               ),
@@ -53,8 +52,7 @@ class _MenuScreenState extends State<MenuScreen> {
                 onTab: () {
                   Navigator.pushNamed(
                     context,
-                    '',
-                    // TODO: add navigator to faq screen
+                    '/faq_screen',
                   );
                 },
               ),
@@ -71,8 +69,7 @@ class _MenuScreenState extends State<MenuScreen> {
                 onTab: () {
                   Navigator.pushNamed(
                     context,
-                    '',
-                    // TODO: add navigator to settings screen
+                    '/settings_screen',
                   );
                 },
               ),

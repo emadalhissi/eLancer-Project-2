@@ -10,6 +10,10 @@ import 'package:elancer_project_2/screens/launch_screen.dart';
 import 'package:elancer_project_2/screens/auth/login_screen.dart';
 import 'package:elancer_project_2/screens/main_screen.dart';
 import 'package:elancer_project_2/screens/menu_screens/about_developer_screen.dart';
+import 'package:elancer_project_2/screens/menu_screens/faq_screen.dart';
+import 'package:elancer_project_2/screens/menu_screens/notifications_screen.dart';
+import 'package:elancer_project_2/screens/menu_screens/profile_screen.dart';
+import 'package:elancer_project_2/screens/menu_screens/settings_screen.dart';
 import 'package:elancer_project_2/screens/outboarding/out_boarding_screen.dart';
 import 'package:elancer_project_2/screens/product_screen.dart';
 import 'package:flutter/material.dart';
@@ -57,6 +61,10 @@ class _MyAppState extends State<MyApp> {
           '/categories_screen': (context) => const CategoriesScreen(),
           '/menu_screen': (context) => const MenuScreen(),
           //-------------------------------MENU SCREENS-------------------------------------
+          '/profile_screen': (context) => const ProfileScreen(),
+          '/notifications_screen': (context) => const NotificationsScreen(),
+          '/faq_screen': (context) => const FAQScreen(),
+          '/settings_screen': (context) => const SettingsScreen(),
           '/about_developer_screen': (context) => const AboutDeveloperScreen(),
           //-------------------------------OTHERS-------------------------------------
           '/forget_password_screen': (context) => const ForgetPasswordScreen(),

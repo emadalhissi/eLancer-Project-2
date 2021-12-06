@@ -1,17 +1,16 @@
+import 'package:elancer_project_2/models/api/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 enum SPKeys {
   firstVisit,
   loggedIn,
-  userName,
-  email,
-  password,
-  fullName,
-  dateOfBirth,
-  language,
+  id,
+  name,
+  mobile,
   gender,
-  address,
-  notifications,
+  cityEn,
+  cityAr,
+  language,
   theme,
   token
 }
@@ -36,7 +35,8 @@ class SharedPreferencesController {
     await _sharedPrefLibObj.setString(SPKeys.language.toString(), language);
   }
 
-  String get checkLanguage => _sharedPrefLibObj.getString(SPKeys.language.toString()) ?? 'en';
+  String get checkLanguage =>
+      _sharedPrefLibObj.getString(SPKeys.language.toString()) ?? 'en';
 
   Future<void> setFirstVisit() async {
     await _sharedPrefLibObj.setBool(SPKeys.firstVisit.toString(), false);
@@ -45,57 +45,28 @@ class SharedPreferencesController {
   bool get checkFirstVisit =>
       _sharedPrefLibObj.getBool(SPKeys.firstVisit.toString()) ?? true;
 
-  Future<void> saveLoggedIn() async {
+  Future<void> save({required User user}) async {
     await _sharedPrefLibObj.setBool(SPKeys.loggedIn.toString(), true);
-  }
-
-  bool get checkLoggedIn =>
-      _sharedPrefLibObj.getBool(SPKeys.loggedIn.toString()) ?? false;
-
-  Future<void> saveUserName({
-    required String userName,
-  }) async {
-    await _sharedPrefLibObj.setString(SPKeys.userName.toString(), userName);
-  }
-
-  String get getUserName =>
-      _sharedPrefLibObj.getString(SPKeys.userName.toString()) ?? '';
-
-  Future<void> saveEmail({
-    required String email,
-  }) async {
-    await _sharedPrefLibObj.setString(SPKeys.email.toString(), email);
-  }
-
-  String get getEmail =>
-      _sharedPrefLibObj.getString(SPKeys.email.toString()) ?? '';
-
-  Future<void> savePassword({
-    required String password,
-  }) async {
-    await _sharedPrefLibObj.setString(SPKeys.password.toString(), password);
-  }
-
-  String get getPassword =>
-      _sharedPrefLibObj.getString(SPKeys.password.toString()) ?? '';
-
-  Future<void> saveFullName({
-    required String fullName,
-  }) async {
-    await _sharedPrefLibObj.setString(SPKeys.fullName.toString(), fullName);
-  }
-
-  String get getFullName =>
-      _sharedPrefLibObj.getString(SPKeys.fullName.toString()) ?? '';
-
-  Future<void> saveDateOfBirth({
-    required String dateOfBirth,
-  }) async {
+    await _sharedPrefLibObj.setInt(SPKeys.id.toString(), user.id);
+    await _sharedPrefLibObj.setString(SPKeys.name.toString(), user.name);
+    await _sharedPrefLibObj.setString(SPKeys.mobile.toString(), user.mobile);
+    await _sharedPrefLibObj.setString(SPKeys.gender.toString(), user.gender);
     await _sharedPrefLibObj.setString(
-        SPKeys.dateOfBirth.toString(), dateOfBirth);
+        SPKeys.cityAr.toString(), user.city.nameAr);
+    await _sharedPrefLibObj.setString(
+        SPKeys.cityEn.toString(), user.city.nameEn);
+    await _sharedPrefLibObj.setString(
+        SPKeys.token.toString(), 'Bearer ' + user.token);
   }
+
+  bool get loggedIn =>
+      _sharedPrefLibObj.getBool(SPKeys.loggedIn.toString()) ?? false;
 
   Future<bool> logout() async {
     return await _sharedPrefLibObj.setBool(SPKeys.loggedIn.toString(), false);
+  }
+
+  Future<bool> clear() async {
+    return await _sharedPrefLibObj.clear();
   }
 }

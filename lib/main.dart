@@ -16,11 +16,14 @@ import 'package:elancer_project_2/screens/menu_screens/profile_screen.dart';
 import 'package:elancer_project_2/screens/menu_screens/settings_screen.dart';
 import 'package:elancer_project_2/screens/outboarding/out_boarding_screen.dart';
 import 'package:elancer_project_2/screens/product_screen.dart';
+import 'package:elancer_project_2/shared_preferences/shared_preferences_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-void main() {
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await SharedPreferencesController().initSharedPreferences();
   runApp(const MyApp());
 }
 
@@ -39,7 +42,7 @@ class _MyAppState extends State<MyApp> {
       builder: () => MaterialApp(
         theme: ThemeData(fontFamily: 'Montserrat'),
         debugShowCheckedModeBanner: false,
-        initialRoute: '/main_screen',
+        initialRoute: '/login_screen',
         localizationsDelegates: [
           GlobalMaterialLocalizations.delegate,
           GlobalCupertinoLocalizations.delegate,

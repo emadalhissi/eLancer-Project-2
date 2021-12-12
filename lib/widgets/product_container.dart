@@ -2,10 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ProductContainer extends StatefulWidget {
-  const ProductContainer({
+  ProductContainer({
     Key? key,
+    required this.imageUrl,
+    required this.title,
+    required this.description,
+    required this.price,
+    this.overal_rate = 0,
+    this.is_favorite = false,
   }) : super(key: key);
 
+  String imageUrl;
+  String title;
+  String description;
+  num price;
+  num overal_rate;
+  bool is_favorite;
   @override
   State<ProductContainer> createState() => _ProductContainerState();
 }
@@ -48,14 +60,16 @@ class _ProductContainerState extends State<ProductContainer> {
                     decoration: BoxDecoration(
                       image: DecorationImage(
                         image: NetworkImage(
-                            'https://smart-store.mr-dev.tech/storage/products/1638441397__product_image_1.jpg'),
+                          // 'https://smart-store.mr-dev.tech/storage/products/1638441397__product_image_1.jpg',
+                          widget.imageUrl,
+                        ),
                       ),
                     ),
                   ),
                   SizedBox(height: 16.h),
                   Expanded(
                     child: Text(
-                      'Table deskmmm',
+                      widget.title,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
                         fontSize: 15.sp,
@@ -68,7 +82,7 @@ class _ProductContainerState extends State<ProductContainer> {
                   SizedBox(height: 4.h),
                   Expanded(
                     child: Text(
-                      'Tulip chair Table Tulip chair TableTulip chair TableTulip chair TableTulip chair Table',
+                      widget.description,
                       overflow: TextOverflow.fade,
                     ),
                   ),
@@ -76,7 +90,7 @@ class _ProductContainerState extends State<ProductContainer> {
                   Row(
                     children: [
                       Text(
-                        '\$61',
+                        '\$${widget.price}',
                         style: TextStyle(
                           fontWeight: FontWeight.w600,
                           fontSize: 16.sp,
@@ -85,7 +99,7 @@ class _ProductContainerState extends State<ProductContainer> {
                       ),
                       Spacer(),
                       Text(
-                        '4.9',
+                        '${widget.overal_rate}',
                         style: TextStyle(
                           fontSize: 13.sp,
                         ),

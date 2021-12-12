@@ -2,7 +2,7 @@ import 'package:elancer_project_2/api/controllers/home_api_controller.dart';
 import 'package:elancer_project_2/models/api/home_response.dart';
 import 'package:get/get.dart';
 
-class HomeGetxController extends GetxController {
+class HomeGetXController extends GetxController {
   HomeResponse? homeResponse;
   bool loading = false;
   final HomeApiController _apiController = HomeApiController();
@@ -10,6 +10,7 @@ class HomeGetxController extends GetxController {
   @override
   void onInit() {
     // TODO: implement onInit
+    getHome();
     super.onInit();
   }
 

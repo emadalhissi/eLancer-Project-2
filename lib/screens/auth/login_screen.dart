@@ -2,6 +2,7 @@ import 'package:elancer_project_2/api/controllers/auth_api_controller.dart';
 import 'package:elancer_project_2/widgets/input_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -49,7 +50,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 alignment: Alignment.center,
                 height: 44.h,
                 child: Text(
-                  'Log In',
+                  AppLocalizations.of(context)!.loginScreen_screenMainTitle,
                   style: TextStyle(
                     fontSize: 18.sp,
                     fontWeight: FontWeight.w700,
@@ -64,7 +65,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Mobile',
+                      AppLocalizations.of(context)!.loginScreen_textField1_label,
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
                         fontSize: 14.sp,
@@ -74,7 +75,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     SizedBox(height: 12.h),
                     InputTextField(
                       controller: _mobileEditingController,
-                      hintText: 'Mobile Number',
+                      hintText: AppLocalizations.of(context)!.loginScreen_textField1_hint,
                       obscure: false,
                       hasIcon: false,
                       onChanged: (value) {
@@ -94,7 +95,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Password',
+                      AppLocalizations.of(context)!.loginScreen_textField2_label,
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
                         fontSize: 14.sp,
@@ -104,7 +105,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     SizedBox(height: 12.h),
                     InputTextField(
                       controller: _passwordEditingController,
-                      hintText: 'Password',
+                      hintText: AppLocalizations.of(context)!.loginScreen_textField2_hint,
                       obscure: true,
                       hasIcon: true,
                       onChanged: (value) {
@@ -121,7 +122,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 alignment: Alignment.center,
                 child: TextButton(
                   child: Text(
-                    'Forgot your password?',
+                    AppLocalizations.of(context)!.loginScreen_forgotPasswordQuestion,
                     style: TextStyle(
                       color: Color(0xff2D9CDB),
                       fontWeight: FontWeight.w500,
@@ -143,7 +144,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       }
                     : null,
                 child: Text(
-                  'Sign In',
+                  AppLocalizations.of(context)!.loginScreen_singInButton,
                   style: TextStyle(
                     color: runSingInButton() ? Color(0xff0B0B0B) : Colors.white,
                     fontSize: 16.sp,
@@ -165,7 +166,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'Don’t have an account? ',
+                    AppLocalizations.of(context)!.loginScreen_haveAnAccountQuestion,
                     style: TextStyle(
                       color: Color(0xff636363),
                       fontSize: 12.sp,
@@ -179,7 +180,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       });
                     },
                     child: Text(
-                      'Sign up',
+                      AppLocalizations.of(context)!.loginScreen_signUpButton,
                       style: TextStyle(
                         color: Color(0xffFFCA27),
                         fontWeight: FontWeight.w500,
@@ -219,10 +220,13 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Future<void> login() async {
-    bool status = await AuthApiController().login(context,
-        mobile: _mobileEditingController.text,
-        password: _passwordEditingController.text);
+    bool status = await AuthApiController().login(
+      context,
+      mobile: _mobileEditingController.text,
+      password: _passwordEditingController.text,
+    );
     if (status) {
+      print("LOGIN");
       Future.delayed(const Duration(seconds: 1), () {
         //TODO: check API info for user login
         Navigator.pushReplacementNamed(context, '/main_screen');

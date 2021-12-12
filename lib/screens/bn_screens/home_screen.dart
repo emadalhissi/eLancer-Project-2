@@ -20,7 +20,7 @@ class _HomeScreenState extends State<HomeScreen> {
   int _sliderCurrentPage = 0;
   int _latestProductsCurrentPage = 0;
 
-  HomeGetxController _homeGetxController = Get.put(HomeGetxController());
+  HomeGetXController _homeGetxController = Get.put(HomeGetXController());
 
   @override
   void initState() {
@@ -45,10 +45,12 @@ class _HomeScreenState extends State<HomeScreen> {
         top: 24.h,
         bottom: 0,
       ),
-      child: GetBuilder<HomeGetxController>(
+      child: GetBuilder<HomeGetXController>(
         builder: (controller) {
           if (controller.loading) {
-            return Center(child: CircularProgressIndicator());
+            return Center(
+              child: CircularProgressIndicator(),
+            );
           } else if (controller.homeResponse != null) {
             return ListView(
               children: [
@@ -87,14 +89,15 @@ class _HomeScreenState extends State<HomeScreen> {
                           },
                           children: [
                             SliderImage(
-                                image:
-                                    'https://c4.wallpaperflare.com/wallpaper/480/897/69/room-blue-furniture-couch-wallpaper-preview.jpg'),
+                                image: controller
+                                    .homeResponse!.slider[0].imageUrl),
+                            // SliderImage(image: ''),
                             SliderImage(
-                                image:
-                                    'https://c4.wallpaperflare.com/wallpaper/488/747/592/design-sofa-interior-pillow-living-room-hd-wallpaper-preview.jpg'),
+                                image: controller
+                                    .homeResponse!.slider[1].imageUrl),
                             SliderImage(
-                                image:
-                                    'https://i.pinimg.com/originals/03/cf/6e/03cf6eb3721b97522d533403e629c373.jpg'),
+                                image: controller
+                                    .homeResponse!.slider[2].imageUrl),
                           ],
                         ),
                       ),
@@ -141,7 +144,12 @@ class _HomeScreenState extends State<HomeScreen> {
                       Expanded(
                         child: GridView.builder(
                           itemBuilder: (BuildContext context, index) {
-                            return ProductContainer();
+                            return ProductContainer(
+                              imageUrl: controller.homeResponse!.latestProducts[index].imageUrl,
+                              title: controller.homeResponse!.latestProducts[index].nameEn,
+                              description: controller.homeResponse!.latestProducts[index].infoEn,
+                              price: controller.homeResponse!.latestProducts[index].price,
+                            );
                           },
                           itemCount: 5,
                           scrollDirection: Axis.horizontal,
@@ -158,7 +166,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ],
                   ),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 Container(
                   color: Colors.white,
                   width: MediaQuery.of(context).size.width,
@@ -181,7 +189,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           TextButton(
                             onPressed: () {
-                              // TODO: add navigator to famous products screen
+                              Navigator.pushNamed(context, '/main_screen');
                             },
                             child: Text(
                               'More',
@@ -198,12 +206,26 @@ class _HomeScreenState extends State<HomeScreen> {
                       Expanded(
                         child: GridView.builder(
                           itemBuilder: (BuildContext context, index) {
-                            return ProductContainer();
+                            return ProductContainer(
+                              imageUrl: controller.homeResponse!
+                                  .famousProducts[index].imageUrl,
+                              title: controller.homeResponse!
+                                  .famousProducts[index].nameEn,
+                              description: controller.homeResponse!
+                                  .famousProducts[index].infoEn,
+                              price: controller.homeResponse!
+                                  .famousProducts[index].price,
+                              overal_rate: controller.homeResponse!
+                                  .famousProducts[index].overalRate,
+                              is_favorite: controller.homeResponse!
+                                  .famousProducts[index].isFavorite,
+                            );
                           },
-                          itemCount: 5,
+                          itemCount: controller
+                              .homeResponse!.famousProducts.length,
                           scrollDirection: Axis.horizontal,
                           gridDelegate:
-                              SliverGridDelegateWithMaxCrossAxisExtent(
+                          SliverGridDelegateWithMaxCrossAxisExtent(
                             maxCrossAxisExtent: 290.h,
                             mainAxisExtent: 156.w,
                             // childAspectRatio: 3 / 2,
@@ -218,7 +240,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ],
             );
           } else {
-            return NoDataCenter();
+            return const NoDataCenter();
           }
         },
       ),

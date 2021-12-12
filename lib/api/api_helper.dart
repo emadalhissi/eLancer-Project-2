@@ -2,13 +2,16 @@ import 'package:elancer_project_2/shared_preferences/shared_preferences_controll
 import 'package:flutter/material.dart';
 
 mixin ApiHelper {
-  void showSnackBar(BuildContext context,
-      {required String message, bool error = false}) {
+  void showSnackBar(
+    BuildContext context, {
+    required String message,
+    bool error = false,
+  }) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(message),
         backgroundColor: error ? Colors.red : Colors.green,
-        duration: const Duration(seconds: 1),
+        duration: const Duration(seconds: 2),
         dismissDirection: DismissDirection.horizontal,
       ),
     );
@@ -17,10 +20,10 @@ mixin ApiHelper {
   Map<String, String> get headers {
     var headers = {
       'Accept': 'application/json',
-      'lang': SharedPreferencesController().checkLanguage
+      'lang': SharedPreferencesController().checkLanguage,
     };
-    // if(SharedPreferencesController().isLoggedIn)
-    //   headers['Authorization'] = 'Bearer TOKEN';
+    if(SharedPreferencesController().loggedIn)
+      headers['Authorization'] = SharedPreferencesController().getToken;
     return headers;
   }
 }

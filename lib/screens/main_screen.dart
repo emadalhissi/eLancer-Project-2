@@ -6,6 +6,7 @@ import 'package:elancer_project_2/screens/bn_screens/menu_screen.dart';
 import 'package:elancer_project_2/screens/bn_screens/products_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -20,11 +21,21 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     final List<BnScreen> _bnScreens = <BnScreen>[
-      BnScreen(title: 'Products', widget: const ProductsScreen()),
-      BnScreen(title: 'Categories', widget: const CategoriesScreen()),
-      BnScreen(title: 'Home', widget: const HomeScreen()),
-      BnScreen(title: 'Favorites', widget: const FavoritesScreen()),
-      BnScreen(title: 'Menu', widget: const MenuScreen()),
+      BnScreen(
+          title: AppLocalizations.of(context)!.productsScreen_screenMainTitle,
+          widget: const ProductsScreen()),
+      BnScreen(
+          title: AppLocalizations.of(context)!.categoriesScreen_screenMainTitle,
+          widget: const CategoriesScreen()),
+      BnScreen(
+          title: AppLocalizations.of(context)!.homeScreen_screenMainTitle,
+          widget: const HomeScreen()),
+      BnScreen(
+          title: AppLocalizations.of(context)!.favoritesScreen_screenMainTitle,
+          widget: const FavoritesScreen()),
+      BnScreen(
+          title: AppLocalizations.of(context)!.menuScreen_screenMainTitle,
+          widget: const MenuScreen()),
     ];
     return Scaffold(
       // extendBodyBehindAppBar: true,

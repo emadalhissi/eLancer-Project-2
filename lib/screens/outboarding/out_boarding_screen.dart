@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class OutBoardingScreen extends StatefulWidget {
   const OutBoardingScreen({Key? key}) : super(key: key);
@@ -58,23 +59,23 @@ class _OutBoardingScreenState extends State<OutBoardingScreen> {
               children: [
                 OutBoardingContent(
                   imageName: 'ob_1.png',
-                  title: 'Space',
-                  subTitle: 'We bring you a comfortable space, with the best furniture.',
+                  title: AppLocalizations.of(context)!.outBoardingScreen_page1_title,
+                  subTitle: AppLocalizations.of(context)!.outBoardingScreen_page1_subTitle,
                 ),
                 OutBoardingContent(
                   imageName: 'ob_2.png',
-                  title: 'Comfortable',
-                  subTitle: 'We bring consumers the best, most comfortable products, so that users can enjoy the best way.',
+                  title: AppLocalizations.of(context)!.outBoardingScreen_page2_title,
+                  subTitle: AppLocalizations.of(context)!.outBoardingScreen_page2_subTitle,
                 ),
                 OutBoardingContent(
                   imageName: 'ob_3.png',
-                  title: 'Delivery',
-                  subTitle: 'Wherever you are in this country, we will ship the furniture to you. Safe, fast and free.',
+                  title: AppLocalizations.of(context)!.outBoardingScreen_page3_title,
+                  subTitle: AppLocalizations.of(context)!.outBoardingScreen_page3_subTitle,
                 ),
                 OutBoardingContent(
                   imageName: 'ob_4.png',
-                  title: 'Guarantee',
-                  subTitle: 'All our products will be warranted within 1 year. We will repair the product as soon as there is an error. ',
+                  title: AppLocalizations.of(context)!.outBoardingScreen_page4_title,
+                  subTitle: AppLocalizations.of(context)!.outBoardingScreen_page4_subTitle,
                 ),
               ],
             ),
@@ -118,7 +119,7 @@ class _OutBoardingScreenState extends State<OutBoardingScreen> {
                     );
                   },
             child: Text(
-              'Next',
+              AppLocalizations.of(context)!.outBoardingScreen_button,
               style: TextStyle(
                 color: Color(0xff0B0B0B),
                 fontSize: 16.sp,

@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:url_launcher/url_launcher.dart';
-// import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AboutDeveloperScreen extends StatefulWidget {
@@ -93,7 +93,7 @@ class _AboutDeveloperScreenState extends State<AboutDeveloperScreen> {
                       Column(
                         children: [
                           Text(
-                            'Emad Alhissi',
+                            AppLocalizations.of(context)!.aboutDeveloperScreen_developerName,
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 21.sp,
@@ -103,7 +103,7 @@ class _AboutDeveloperScreenState extends State<AboutDeveloperScreen> {
                           ),
                           SizedBox(height: 15.h),
                           Text(
-                            'Mobile Developer',
+                            AppLocalizations.of(context)!.aboutDeveloperScreen_developerField,
                             style: TextStyle(
                               // fontStyle: FontStyle.normal,
                               fontSize: 16.sp,
@@ -138,26 +138,26 @@ class _AboutDeveloperScreenState extends State<AboutDeveloperScreen> {
                     children: [
                       AboutDeveloperListTile(
                         icon: Icons.phone_android_outlined,
-                        title: 'Phone',
+                        title: AppLocalizations.of(context)!.aboutDeveloperScreen_mobileTitle,
                         subTitle: '00972599680798',
-                        buttonText: 'Call Now',
+                        buttonText: AppLocalizations.of(context)!.aboutDeveloperScreen_callNowButton,
                         launchUrl: _phoneNumber,
                       ),
                       AboutDeveloperListTile(
                         icon: Icons.email,
-                        title: 'Email',
+                        title: AppLocalizations.of(context)!.aboutDeveloperScreen_emailTitle,
                         subTitle: 'emadalhissi@gmail.com',
-                        buttonText: 'Send Email',
+                        buttonText: AppLocalizations.of(context)!.aboutDeveloperScreen_sendEmailButton,
                         launchUrl: _email,
                       ),
                       AboutDeveloperListTile(
                         icon: Icons.location_on_sharp,
-                        title: 'Address',
-                        subTitle: 'Gaza, Palestine',
+                        title: AppLocalizations.of(context)!.aboutDeveloperScreen_addressTitle,
+                        subTitle: AppLocalizations.of(context)!.aboutDeveloperScreen_addressSubTitle,
                       ),
                       AboutDeveloperListTile(
                         icon: Icons.date_range,
-                        title: 'D.O.B',
+                        title: AppLocalizations.of(context)!.aboutDeveloperScreen_dateOfBirthTitle,
                         subTitle: '22-01-2021',
                       ),
                     ],

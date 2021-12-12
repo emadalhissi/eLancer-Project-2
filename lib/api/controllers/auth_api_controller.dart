@@ -10,27 +10,76 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class AuthApiController with ApiHelper {
-
-  Future<bool> login(BuildContext context, {required String mobile, required String password}) async {
-
+  Future<bool> login(
+    BuildContext context, {
+    required String mobile,
+    required String password,
+  }) async {
     var url = Uri.parse(ApiSettings.login);
-    print('BEFORE: WE ARE HERE ${ApiSettings.login}');
     var response = await http.post(
       url,
-      body: {'mobile': mobile, 'password': password},
+      body: {
+        'mobile': mobile,
+        'password': password,
+      },
       // headers: headers,
     );
-    print('AFTER: WE ARE HERE ${headers}');
-    if(response.statusCode == 200) {
-      var baseApiResponse = BaseApiObjectResponse<User>.fromJson(jsonDecode(response.body));
+    if (response.statusCode == 200) {
+      var baseApiResponse =
+          BaseApiObjectResponse<User>.fromJson(jsonDecode(response.body));
       showSnackBar(context, message: baseApiResponse.message);
-      await SharedPreferencesController().save(user: baseApiResponse.data);
+      // await SharedPreferencesController().save(user: baseApiResponse.data);
       return true;
-    }else if(response.statusCode == 400) {
+    } else if (response.statusCode == 400) {
       var message = jsonDecode(response.body)['message'];
-      showSnackBar(context, message: message,error: true);
-    }else {
-      showSnackBar(context, message: 'Something went wrong, please try again!',error: true);
+      showSnackBar(
+        context,
+        message: message,
+        error: true,
+      );
+    } else {
+      showSnackBar(context,
+          message: 'Something went wrong, please try again!', error: true);
+    }
+    return false;
+  }
+
+  Future<bool> register(
+      BuildContext context, {
+        required User user,
+      }) async {
+    var url = Uri.parse(ApiSettings.register);
+    var response = await http.post(
+      url,
+      body: {
+        'name': user.name,
+        'mobile': user.mobile,
+        'password': user.password,
+        'gender': user.gender,
+        'STORE_API_KEY': ApiSettings.storeApiKey,
+        'city_id': user.cityId.toString(),
+      },
+      headers: headers,
+    );
+    if (response.statusCode == 201) {
+      print(response.statusCode);
+      var baseApiResponse =
+      BaseApiObjectResponse<User>.fromJson(jsonDecode(response.body));
+      showSnackBar(context, message: baseApiResponse.message);
+      // await SharedPreferencesController().save(user: baseApiResponse.data);
+      return true;
+    } else if (response.statusCode == 400) {
+      print(response.statusCode);
+      var message = jsonDecode(response.body)['message'];
+      showSnackBar(
+        context,
+        message: message,
+        error: true,
+      );
+    } else {
+      print(response.statusCode);
+      showSnackBar(context,
+          message: 'Something went wrong, please try again!', error: true);
     }
     return false;
   }

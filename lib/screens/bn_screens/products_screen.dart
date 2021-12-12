@@ -1,3 +1,4 @@
+import 'package:elancer_project_2/widgets/no_data_center.dart';
 import 'package:elancer_project_2/widgets/product_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -19,7 +20,8 @@ class _ProductsScreenState extends State<ProductsScreen> {
         color: Colors.white,
         child: GridView.builder(
           itemBuilder: (BuildContext context, index) {
-            return ProductContainer();
+            // return ProductContainer();
+            return NoDataCenter();
           },
           itemCount: 10,
           scrollDirection: Axis.vertical,

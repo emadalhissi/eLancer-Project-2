@@ -59,6 +59,9 @@ class SharedPreferencesController {
         SPKeys.token.toString(), 'Bearer ' + user.token);
   }
 
+  String get getToken =>
+      _sharedPrefLibObj.getString(SPKeys.token.toString()) ?? '';
+
   bool get loggedIn =>
       _sharedPrefLibObj.getBool(SPKeys.loggedIn.toString()) ?? false;
 

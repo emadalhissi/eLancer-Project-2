@@ -1,8 +1,9 @@
+import 'package:elancer_project_2/shared_preferences/shared_preferences_controller.dart';
 import 'package:elancer_project_2/widgets/menu_screen_list_tile.dart';
-import 'package:elancer_project_2/widgets/no_data_center.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MenuScreen extends StatefulWidget {
   const MenuScreen({Key? key}) : super(key: key);
@@ -27,7 +28,7 @@ class _MenuScreenState extends State<MenuScreen> {
           child: Column(
             children: [
               MenuScreenListTile(
-                title: 'Profile',
+                title: AppLocalizations.of(context)!.menuScreen_profile,
                 icon: Icons.person,
                 onTab: () {
                   Navigator.pushNamed(
@@ -37,7 +38,7 @@ class _MenuScreenState extends State<MenuScreen> {
                 },
               ),
               MenuScreenListTile(
-                title: 'Notifications',
+                title: AppLocalizations.of(context)!.menuScreen_notifications,
                 icon: Icons.notifications,
                 onTab: () {
                   Navigator.pushNamed(
@@ -47,7 +48,7 @@ class _MenuScreenState extends State<MenuScreen> {
                 },
               ),
               MenuScreenListTile(
-                title: 'FAQ',
+                title:AppLocalizations.of(context)!.menuScreen_faq,
                 icon: Icons.help,
                 onTab: () {
                   Navigator.pushNamed(
@@ -57,14 +58,14 @@ class _MenuScreenState extends State<MenuScreen> {
                 },
               ),
               MenuScreenListTile(
-                title: 'Privacy Policy',
+                title: AppLocalizations.of(context)!.menuScreen_privacyPolicy,
                 icon: Icons.privacy_tip,
                 onTab: () {
                   launchURL(privacyPolicyLink);
                 },
               ),
               MenuScreenListTile(
-                title: 'Settings',
+                title: AppLocalizations.of(context)!.menuScreen_settings,
                 icon: Icons.settings,
                 onTab: () {
                   Navigator.pushNamed(
@@ -74,14 +75,14 @@ class _MenuScreenState extends State<MenuScreen> {
                 },
               ),
               Divider(
-                color: Color(0xffB0B0B0),
+                color: const Color(0xffB0B0B0),
                 thickness: 1,
                 indent: 24,
                 endIndent: 24,
                 height: 20.h,
               ),
               MenuScreenListTile(
-                title: 'About Developer',
+                title: AppLocalizations.of(context)!.menuScreen_aboutDeveloper,
                 icon: Icons.info,
                 onTab: () {
                   Navigator.pushNamed(
@@ -91,20 +92,20 @@ class _MenuScreenState extends State<MenuScreen> {
                 },
               ),
               Divider(
-                color: Color(0xffB0B0B0),
+                color: const Color(0xffB0B0B0),
                 thickness: 1,
                 indent: 24,
                 endIndent: 24,
                 height: 20.h,
               ),
               MenuScreenListTile(
-                title: 'Logout',
+                title: AppLocalizations.of(context)!.menuScreen_logout,
                 icon: Icons.logout,
                 onTab: () {
                   Navigator.pushReplacementNamed(
                     context,
                     '/login_screen',
-                    // TODO: add logout function
+
                   );
                 },
               ),
@@ -117,4 +118,8 @@ class _MenuScreenState extends State<MenuScreen> {
 
   void launchURL(String url) async =>
       await canLaunch(url) ? await launch(url) : throw 'Could not launch!';
+
+  void logout() async {
+    await SharedPreferencesController().clear();
+  }
 }

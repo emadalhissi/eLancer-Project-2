@@ -15,6 +15,9 @@ class User {
   late String tokenType;
   late String refreshToken;
   late City city;
+  late String password;
+
+  User();
 
   User.fromJson(Map<String, dynamic> json) {
     id = json['id'];

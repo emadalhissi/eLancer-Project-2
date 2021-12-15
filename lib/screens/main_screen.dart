@@ -5,6 +5,7 @@ import 'package:elancer_project_2/screens/bn_screens/categories_screen.dart';
 import 'package:elancer_project_2/screens/bn_screens/favorites_screen.dart';
 import 'package:elancer_project_2/screens/bn_screens/home_screen.dart';
 import 'package:elancer_project_2/screens/bn_screens/menu_screen.dart';
+import 'package:elancer_project_2/screens/bn_screens/offers_screen.dart';
 import 'package:elancer_project_2/screens/bn_screens/products_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -23,9 +24,12 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     final List<BnScreen> _bnScreens = <BnScreen>[
+      // BnScreen(
+      //     title: AppLocalizations.of(context)!.productsScreen_screenMainTitle,
+      //     widget: const ProductsScreen()),
       BnScreen(
-          title: AppLocalizations.of(context)!.productsScreen_screenMainTitle,
-          widget: const ProductsScreen()),
+          title: 'Offers',
+          widget: const OffersScreen()),
       BnScreen(
           title: AppLocalizations.of(context)!.categoriesScreen_screenMainTitle,
           widget: const CategoriesScreen()),
@@ -119,13 +123,13 @@ class _MainScreenState extends State<MainScreen> {
         items: [
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.store,
+              Icons.local_offer,
               size: 26.h,
               color: Color(0xffB0B0B0),
             ),
             label: '',
             activeIcon: Icon(
-              Icons.store,
+              Icons.local_offer,
               size: 26.h,
               color: Color(0xffFFCA27),
             ),

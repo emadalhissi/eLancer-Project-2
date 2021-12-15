@@ -7,6 +7,7 @@ class ApiSettings {
   static const String activate = _apiBaseUrl + 'auth/activate';
   static const String forget = _apiBaseUrl + 'auth/forget-password';
   static const String reset = _apiBaseUrl + 'auth/reset-password';
+  static const String change = _apiBaseUrl + 'auth/change-password';
   static const String logout = _apiBaseUrl + 'auth/logout';
 
   static const String storeApiKey = '1e8c16b9-f6ef-4a80-907f-ada9e38d7fdc';
@@ -17,6 +18,8 @@ class ApiSettings {
   static const String products = _apiBaseUrl + 'products/{id}';
   static const String category = _apiBaseUrl + 'categories';
   static const String subCategory = _apiBaseUrl + 'categories';
+  static const String subCategoryProducts = _apiBaseUrl + 'sub-categories';
+  static const String offers = _apiBaseUrl + 'offers';
   static const String faqs = _apiBaseUrl + 'faqs';
   static const String contact = _apiBaseUrl + 'contact-requests';
   static const String favorite = _apiBaseUrl + 'favorite-products';

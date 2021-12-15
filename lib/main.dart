@@ -17,10 +17,9 @@ import 'package:elancer_project_2/screens/menu_screens/notifications_screen.dart
 import 'package:elancer_project_2/screens/menu_screens/profile_screen.dart';
 import 'package:elancer_project_2/screens/menu_screens/settings_screen.dart';
 import 'package:elancer_project_2/screens/outboarding/out_boarding_screen.dart';
-import 'package:elancer_project_2/screens/product_screen.dart';
+import 'package:elancer_project_2/screens/settings/change_password_screen.dart';
 import 'package:elancer_project_2/shared_preferences/shared_preferences_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart'; //IMPORTANT
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
@@ -91,8 +90,10 @@ class MyMaterialApp extends StatelessWidget {
         '/contact_screen': (context) => const ContactScreen(),
         '/settings_screen': (context) => const SettingsScreen(),
         '/about_developer_screen': (context) => const AboutDeveloperScreen(),
+        //-------------------------------Settingd-------------------------------------
+        '/change_password_screen': (context) => const ChangePasswordScreen(),
         //-------------------------------OTHERS-------------------------------------
-        '/forget_password_screen': (context) => const ForgetPasswordScreen(),
+        '/forget_password_screen': (context) => const ChangePasswordScreen(),
       },
       supportedLocales: const [
         Locale('ar'),

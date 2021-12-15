@@ -1,6 +1,7 @@
 import 'package:elancer_project_2/api/controllers/sub_category_api_controller.dart';
 import 'package:elancer_project_2/models/api/category.dart';
 import 'package:elancer_project_2/models/api/sub_category.dart';
+import 'package:elancer_project_2/screens/sub_category_products_screen.dart';
 import 'package:elancer_project_2/widgets/no_data_center.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -25,7 +26,8 @@ class _SubCategoriesScreenState extends State<SubCategoriesScreen> {
   @override
   void initState() {
     super.initState();
-    _future = SubCategoryApiController().showSubCategory(category: widget.category);
+    _future =
+        SubCategoryApiController().showSubCategory(category: widget.category);
   }
 
   @override
@@ -94,12 +96,12 @@ class _SubCategoriesScreenState extends State<SubCategoriesScreen> {
                     padding: const EdgeInsets.only(bottom: 16),
                     child: InkWell(
                       onTap: () {
-                        // Navigator.push(
-                        //   context,
-                        //   MaterialPageRoute(
-                        //     builder: (context) => SubCategoriesScreen(),
-                        //   ),
-                        // );
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => SubCategoryProductsScreen(subCategory: _subCategoryList[index]),
+                          ),
+                        );
                       },
                       child: Container(
                         margin:
@@ -114,8 +116,7 @@ class _SubCategoriesScreenState extends State<SubCategoriesScreen> {
                               color: Colors.grey.withOpacity(0.2),
                               spreadRadius: 5.r,
                               blurRadius: 7.r,
-                              offset:
-                                  Offset(0, 2), // changes position of shadow
+                              offset: Offset(0, 2),
                             ),
                           ],
                         ),
@@ -158,19 +159,6 @@ class _SubCategoriesScreenState extends State<SubCategoriesScreen> {
             }
           },
         ),
-        // child: GetBuilder<CategoriesGetXController> (
-        //   builder: (controller) {
-        //     if (controller.loading) {
-        //       return Center(
-        //         child: CircularProgressIndicator(),
-        //       );
-        //     } else if (controller.category != null) {
-        //       return ;
-        //     } else {
-        //       return const NoDataCenter();
-        //     }
-        //   },
-        // ),
       ),
     );
   }

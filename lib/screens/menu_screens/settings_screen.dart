@@ -182,13 +182,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                           ),
                                         ],
                                       ),
-                                      // Padding(
-                                      //   padding: EdgeInsets.all(8.0),
-                                      //   child: TextFormField(),
-                                      // ),
-                                      // Padding(
-                                      //   padding: const EdgeInsets.all(8.0),
-                                      // ),
                                     ],
                                   ),
                                 ),
@@ -219,31 +212,35 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     ),
                   ),
                 ),
+                SizedBox(height: 10.h),
+                ListTile(
+                  onTap: () {
+                    Navigator.pushNamed(context, '/change_password_screen');
+                  },
+                  leading: CircleAvatar(
+                    backgroundColor: Colors.transparent,
+                    radius: 25,
+                    child: Icon(
+                      Icons.lock,
+                      color: const Color(0xff636363),
+                      size: 28.w,
+                    ),
+                  ),
+                  contentPadding: const EdgeInsets.symmetric(horizontal: 5),
+                  title: Text(
+                    'Change Password',
+                    style: TextStyle(
+                      color: const Color(0xff636363),
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
         ),
       ),
-      // body: Center(
-      //   child: Column(
-      //     mainAxisAlignment: MainAxisAlignment.center,
-      //     children: [
-      //       Image(
-      //         image: AssetImage('images/settings.png'),
-      //         width: 200,
-      //         height: 200,
-      //       ),
-      //       SizedBox(height: 30),
-      //       Text(
-      //         'COMING SOON',
-      //         style: TextStyle(
-      //           color: Colors.grey.shade800,
-      //           fontSize: 25,
-      //         ),
-      //       ),
-      //     ],
-      //   ),
-      // ),
     );
   }
 
@@ -254,21 +251,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
       return 'images/saudi_arabia_flag.png';
     }
   }
-// void changeLang() {
-//
-//
-//   Provider.of<LangProvider>(context, listen: false).changeLang();
-// }
-
-// void changeLang(String lang) async {
-//   await SharedPreferencesController().setLanguage(language: lang);
-//   Future.delayed(
-//     const Duration(milliseconds: 500),
-//     () {
-//       Navigator.pushNamed(context, '/launch_screen');
-//     },
-//   );
-// }
 }
 
 class SettingsScreen extends StatefulWidget {

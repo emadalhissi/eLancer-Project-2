@@ -29,8 +29,9 @@ class AuthApiController with ApiHelper {
           BaseApiObjectResponse<User>.fromJson(jsonDecode(response.body));
       showSnackBar(context, message: baseApiResponse.message);
       Map<String, dynamic> responseBodyData = jsonDecode(response.body)['data'];
-      if(responseBodyData.containsKey('token')) {
-        SharedPreferencesController().setToken(token: responseBodyData['token']);
+      if (responseBodyData.containsKey('token')) {
+        SharedPreferencesController()
+            .setToken(token: responseBodyData['token']);
       }
       return true;
     } else if (response.statusCode == 400) {
@@ -145,6 +146,47 @@ class AuthApiController with ApiHelper {
       var message = jsonDecode(response.body)['message'];
       var code = jsonDecode(response.body)['code'];
       print(code);
+      showSnackBar(
+        context,
+        message: message,
+      );
+      return true;
+    } else if (response.statusCode == 400) {
+      var message = jsonDecode(response.body)['message'];
+      showSnackBar(
+        context,
+        message: message,
+        error: true,
+      );
+    } else {
+      showSnackBar(
+        context,
+        message: 'Something went wrong, please try again!',
+        error: true,
+      );
+    }
+    return false;
+  }
+
+  Future<bool> change(
+    BuildContext context, {
+    required String currentPassword,
+    required String newPassword,
+    required String repeatPassword,
+  }) async {
+    var url = Uri.parse(ApiSettings.change);
+    var response = await http.post(
+      url,
+      body: {
+        'current_password': currentPassword,
+        'new_password': newPassword,
+        'new_password_confirmation': repeatPassword,
+      },
+      headers: headers,
+    );
+
+    if (response.statusCode == 200) {
+      var message = jsonDecode(response.body)['message'];
       showSnackBar(
         context,
         message: message,

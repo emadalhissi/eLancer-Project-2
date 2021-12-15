@@ -11,6 +11,7 @@ import 'package:elancer_project_2/screens/launch_screen.dart';
 import 'package:elancer_project_2/screens/auth/login_screen.dart';
 import 'package:elancer_project_2/screens/main_screen.dart';
 import 'package:elancer_project_2/screens/menu_screens/about_developer_screen.dart';
+import 'package:elancer_project_2/screens/menu_screens/contact_screen.dart';
 import 'package:elancer_project_2/screens/menu_screens/faq_screen.dart';
 import 'package:elancer_project_2/screens/menu_screens/notifications_screen.dart';
 import 'package:elancer_project_2/screens/menu_screens/profile_screen.dart';
@@ -66,7 +67,7 @@ class MyMaterialApp extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData(fontFamily: 'Montserrat'),
       debugShowCheckedModeBanner: false,
-      initialRoute: '/main_screen',
+      initialRoute: '/launch_screen',
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       routes: {
         //-------------------------------START SCREENS-------------------------------------
@@ -87,11 +88,11 @@ class MyMaterialApp extends StatelessWidget {
         '/profile_screen': (context) => const ProfileScreen(),
         '/notifications_screen': (context) => const NotificationsScreen(),
         '/faq_screen': (context) => const FAQScreen(),
+        '/contact_screen': (context) => const ContactScreen(),
         '/settings_screen': (context) => const SettingsScreen(),
         '/about_developer_screen': (context) => const AboutDeveloperScreen(),
         //-------------------------------OTHERS-------------------------------------
         '/forget_password_screen': (context) => const ForgetPasswordScreen(),
-        '/product_screen': (context) => const ProductScreen(),
       },
       supportedLocales: const [
         Locale('ar'),

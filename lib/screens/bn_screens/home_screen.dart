@@ -74,8 +74,6 @@ class _HomeScreenState extends State<HomeScreen> {
                       Expanded(
                         child: PageView(
                           physics: BouncingScrollPhysics(),
-                          // clipBehavior: Clip.none,
-                          // controller: _pageController,
                           padEnds: false,
                           controller: PageController(
                             viewportFraction: 0.9,
@@ -91,7 +89,6 @@ class _HomeScreenState extends State<HomeScreen> {
                             SliderImage(
                                 image: controller
                                     .homeResponse!.slider[0].imageUrl),
-                            // SliderImage(image: ''),
                             SliderImage(
                                 image: controller
                                     .homeResponse!.slider[1].imageUrl),
@@ -112,7 +109,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    // mainAxisSize: MainAxisSize.min,
                     children: [
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -145,10 +141,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         child: GridView.builder(
                           itemBuilder: (BuildContext context, index) {
                             return ProductContainer(
-                              imageUrl: controller.homeResponse!.latestProducts[index].imageUrl,
-                              title: controller.homeResponse!.latestProducts[index].nameEn,
-                              description: controller.homeResponse!.latestProducts[index].infoEn,
-                              price: controller.homeResponse!.latestProducts[index].price,
+                              product: controller.homeResponse!.latestProducts[index],
                             );
                           },
                           itemCount: 5,
@@ -157,7 +150,6 @@ class _HomeScreenState extends State<HomeScreen> {
                               SliverGridDelegateWithMaxCrossAxisExtent(
                             maxCrossAxisExtent: 290.h,
                             mainAxisExtent: 156.w,
-                            // childAspectRatio: 3 / 2,
                             crossAxisSpacing: 20,
                             mainAxisSpacing: 20,
                           ),
@@ -207,18 +199,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         child: GridView.builder(
                           itemBuilder: (BuildContext context, index) {
                             return ProductContainer(
-                              imageUrl: controller.homeResponse!
-                                  .famousProducts[index].imageUrl,
-                              title: controller.homeResponse!
-                                  .famousProducts[index].nameEn,
-                              description: controller.homeResponse!
-                                  .famousProducts[index].infoEn,
-                              price: controller.homeResponse!
-                                  .famousProducts[index].price,
-                              overal_rate: controller.homeResponse!
-                                  .famousProducts[index].overalRate,
-                              is_favorite: controller.homeResponse!
-                                  .famousProducts[index].isFavorite,
+                              product: controller.homeResponse!.famousProducts[index],
                             );
                           },
                           itemCount: controller
@@ -228,7 +209,6 @@ class _HomeScreenState extends State<HomeScreen> {
                           SliverGridDelegateWithMaxCrossAxisExtent(
                             maxCrossAxisExtent: 290.h,
                             mainAxisExtent: 156.w,
-                            // childAspectRatio: 3 / 2,
                             crossAxisSpacing: 20,
                             mainAxisSpacing: 20,
                           ),

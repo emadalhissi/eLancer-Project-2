@@ -1,3 +1,4 @@
+import 'package:elancer_project_2/api/controllers/auth_api_controller.dart';
 import 'package:elancer_project_2/shared_preferences/shared_preferences_controller.dart';
 import 'package:elancer_project_2/widgets/menu_screen_list_tile.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +14,6 @@ class MenuScreen extends StatefulWidget {
 }
 
 class _MenuScreenState extends State<MenuScreen> {
-
   final privacyPolicyLink = 'https://smart-store.mr-dev.tech/privacy-policy';
 
   @override
@@ -48,7 +48,7 @@ class _MenuScreenState extends State<MenuScreen> {
                 },
               ),
               MenuScreenListTile(
-                title:AppLocalizations.of(context)!.menuScreen_faq,
+                title: AppLocalizations.of(context)!.menuScreen_faq,
                 icon: Icons.help,
                 onTab: () {
                   Navigator.pushNamed(
@@ -62,6 +62,16 @@ class _MenuScreenState extends State<MenuScreen> {
                 icon: Icons.privacy_tip,
                 onTab: () {
                   launchURL(privacyPolicyLink);
+                },
+              ),
+              MenuScreenListTile(
+                title: 'Contact Us',
+                icon: Icons.local_phone,
+                onTab: () {
+                  Navigator.pushNamed(
+                    context,
+                    '/contact_screen',
+                  );
                 },
               ),
               MenuScreenListTile(
@@ -102,11 +112,7 @@ class _MenuScreenState extends State<MenuScreen> {
                 title: AppLocalizations.of(context)!.menuScreen_logout,
                 icon: Icons.logout,
                 onTab: () {
-                  Navigator.pushReplacementNamed(
-                    context,
-                    '/login_screen',
-
-                  );
+                  logout();
                 },
               ),
             ],
@@ -119,7 +125,13 @@ class _MenuScreenState extends State<MenuScreen> {
   void launchURL(String url) async =>
       await canLaunch(url) ? await launch(url) : throw 'Could not launch!';
 
-  void logout() async {
-    await SharedPreferencesController().clear();
+  Future<void> logout() async {
+    bool status = await AuthApiController().logout();
+    if (status) {
+      SharedPreferencesController().logout();
+      Future.delayed(const Duration(seconds: 1), () {
+        Navigator.pushReplacementNamed(context, '/login_screen');
+      });
+    }
   }
 }

@@ -46,7 +46,7 @@ class SharedPreferencesController {
       _sharedPrefLibObj.getBool(SPKeys.firstVisit.toString()) ?? true;
 
   Future<void> save({required User user}) async {
-    await _sharedPrefLibObj.setBool(SPKeys.loggedIn.toString(), true);
+    // await _sharedPrefLibObj.setBool(SPKeys.loggedIn.toString(), true);
     await _sharedPrefLibObj.setInt(SPKeys.id.toString(), user.id);
     await _sharedPrefLibObj.setString(SPKeys.name.toString(), user.name);
     await _sharedPrefLibObj.setString(SPKeys.mobile.toString(), user.mobile);
@@ -55,9 +55,31 @@ class SharedPreferencesController {
         SPKeys.cityAr.toString(), user.city.nameAr);
     await _sharedPrefLibObj.setString(
         SPKeys.cityEn.toString(), user.city.nameEn);
-    await _sharedPrefLibObj.setString(
-        SPKeys.token.toString(), 'Bearer ' + user.token);
   }
+
+  Future<void> login() async {
+    await _sharedPrefLibObj.setBool(SPKeys.loggedIn.toString(), true);
+  }
+
+  Future<void> setToken({required String token}) async {
+    await _sharedPrefLibObj.setString(
+        SPKeys.token.toString(), 'Bearer ' + token);
+  }
+
+  String get getName =>
+      _sharedPrefLibObj.getString(SPKeys.name.toString()) ?? '';
+
+  String get getMobile =>
+      _sharedPrefLibObj.getString(SPKeys.mobile.toString()) ?? '';
+
+  String get getGender =>
+      _sharedPrefLibObj.getString(SPKeys.gender.toString()) ?? '';
+
+  String get getCityEn =>
+      _sharedPrefLibObj.getString(SPKeys.cityEn.toString()) ?? '';
+
+  String get getCityAr =>
+      _sharedPrefLibObj.getString(SPKeys.cityAr.toString()) ?? '';
 
   String get getToken =>
       _sharedPrefLibObj.getString(SPKeys.token.toString()) ?? '';
@@ -67,9 +89,5 @@ class SharedPreferencesController {
 
   Future<bool> logout() async {
     return await _sharedPrefLibObj.setBool(SPKeys.loggedIn.toString(), false);
-  }
-
-  Future<bool> clear() async {
-    return await _sharedPrefLibObj.clear();
   }
 }

@@ -2,8 +2,8 @@ import 'package:elancer_project_2/api/controllers/auth_api_controller.dart';
 import 'package:elancer_project_2/api/controllers/city_api_controller.dart';
 import 'package:elancer_project_2/models/api/city.dart';
 import 'package:elancer_project_2/models/api/user.dart';
+import 'package:elancer_project_2/shared_preferences/shared_preferences_controller.dart';
 import 'package:elancer_project_2/widgets/input_text_field.dart';
-import 'package:elancer_project_2/widgets/no_data_center.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -16,33 +16,16 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
-  int? dropDownValue;
-
-  // var items = [
-  //   'Gaza',
-  //   'Deir Al-Balah',
-  //   'Khanyounis',
-  //   'Al Nosyrat',
-  //   'Al Borayj',
-  //   'Al Mghazi',
-  //   'Rafah',
-  //   'Al Zwayda',
-  //   'Jbalya',
-  //   'Beit Lahya',
-  //   'Biet Hanoon'
-  // ];
-
-  List<City> _city = <City>[];
-  late Future<List<City>> _future;
-
-  bool checkBoxValue = false;
-  String _gender = 'M';
-
-  List gender = [];
-
   late TextEditingController _nameEditingController;
   late TextEditingController _mobileEditingController;
   late TextEditingController _passwordEditingController;
+
+  String _gender = 'M';
+
+  int cityId = 1;
+
+  List<City> _city = <City>[];
+  late Future<List<City>> _future;
 
   @override
   void initState() {
@@ -84,7 +67,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 color: Colors.white,
                 height: 44.h,
                 child: Row(
-                  // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Container(
                       width: 44.w,
@@ -108,11 +90,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           });
                         },
                         splashRadius: 1,
-                        // icon: Icon(
-                        //   Icons.arrow_back_ios,
-                        //   color: Color(0xffB0B0B0),
-                        //   size: 24,
-                        // ),
                         icon: Image(
                           image: AssetImage('images/left_arrow.png'),
                           width: 10.w,
@@ -244,30 +221,20 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ),
                     ),
                     SizedBox(height: 12.h),
-                    // InputTextField(
-                    //   controller: _passwordEditingController,
-                    //   hintText: 'Gender',
-                    //   obscure: true,
-                    //   hasIcon: true,
-                    //   onChanged: (value) {
-                    //     setState(() {
-                    //       _passwordEditingController;
-                    //     });
-                    //   },
-                    // ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Expanded(
                           child: RadioListTile<String>(
                               title: Text(
-                                  AppLocalizations.of(context)!
-                                      .registerScreen_genderMale,
-                                  style: TextStyle(
-                                      // fontFamily: 'Nunito',
-                                      fontSize: 20.sp,
-                                      color: const Color(0xff23203F),
-                                      fontWeight: FontWeight.w600)),
+                                AppLocalizations.of(context)!
+                                    .registerScreen_genderMale,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 14.sp,
+                                  color: Color(0xff636363),
+                                ),
+                              ),
                               contentPadding: EdgeInsets.zero,
                               value: 'M',
                               groupValue: _gender,
@@ -282,13 +249,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         Expanded(
                           child: RadioListTile<String>(
                               title: Text(
-                                  AppLocalizations.of(context)!
-                                      .registerScreen_genderFemale,
-                                  style: TextStyle(
-                                      // fontFamily: 'Nunito',
-                                      fontSize: 20.sp,
-                                      color: const Color(0xff23203F),
-                                      fontWeight: FontWeight.w600)),
+                                AppLocalizations.of(context)!
+                                    .registerScreen_genderFemale,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 14.sp,
+                                  color: Color(0xff636363),
+                                ),
+                              ),
                               contentPadding: EdgeInsets.zero,
                               value: 'F',
                               groupValue: _gender,
@@ -302,45 +270,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         ),
                       ],
                     ),
-                    // Row(
-                    //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    //   children: [
-                    //     Row(
-                    //       children: [
-                    //
-                    //         Checkbox(
-                    //           value: checkBoxValue,
-                    //           onChanged: (value) {
-                    //             setState(() {
-                    //               checkBoxValue = value!;
-                    //             });
-                    //           },
-                    //         ),
-                    //         Text(AppLocalizations.of(context)!.registerScreen_genderMale),
-                    //       ],
-                    //     ),
-                    //     Spacer(),
-                    //     Row(
-                    //       children: [
-                    //         Checkbox(
-                    //           value: checkBoxValue,
-                    //           onChanged: (value) {
-                    //             setState(() {
-                    //               checkBoxValue = value!;
-                    //             });
-                    //           },
-                    //         ),
-                    //         Text(AppLocalizations.of(context)!.registerScreen_genderFemale),
-                    //       ],
-                    //     ),
-                    //     Spacer(),
-                    //   ],
-                    // ),
                   ],
                 ),
               ),
               SizedBox(height: 16.h),
-              Container(
+              Container(                                         // City Container
                 color: Colors.white,
                 alignment: Alignment.centerLeft,
                 child: Column(
@@ -355,34 +289,23 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ),
                     ),
                     SizedBox(height: 12.h),
-                    // InputTextField(
-                    //   controller: _passwordEditingController,
-                    //   hintText: 'City',
-                    //   obscure: true,
-                    //   hasIcon: true,
-                    //   onChanged: (value) {
-                    //     setState(() {
-                    //       _passwordEditingController;
-                    //     });
-                    //   },
-                    // ),
                     FutureBuilder<List<City>>(
                       future: _future,
                       builder: (context, snapshot) {
                         if (snapshot.hasData && snapshot.data!.isNotEmpty) {
                           _city = snapshot.data ?? [];
                           return DropdownButton(
-                            value: dropDownValue,
+                            value: cityId,
                             icon: Icon(Icons.keyboard_arrow_down),
                             items: _city.map((e) {
                               return DropdownMenuItem(
-                                child: Text(e.nameEn),
+                                child: Text(SharedPreferencesController().checkLanguage == 'en' ? e.nameEn : e.nameAr),
                                 value: e.id,
                               );
                             }).toList(),
                             onChanged: (int? newValue) {
                               setState(() {
-                                dropDownValue = newValue!;
+                                cityId = newValue!;
                               });
                             },
                             isExpanded: true,
@@ -393,27 +316,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           );
                         }
                       },
-                      // child: DropdownButton(
-                      //   value: dropDownValue,
-                      //   icon: Icon(Icons.keyboard_arrow_down),
-                      //   items: items.map((String items) {
-                      //     return DropdownMenuItem(
-                      //       value: items,
-                      //       child: Text(items),
-                      //     );
-                      //   }).toList(),
-                      //   onChanged: (String? newValue) {
-                      //     setState(() {
-                      //       dropDownValue = newValue!;
-                      //     });
-                      //   },
-                      //   isExpanded: true,
-                      // ),
                     ),
                   ],
                 ),
               ),
-              // SizedBox(height: 24.h),
               Spacer(),
               ElevatedButton(
                 onPressed: runRegisterButton()
@@ -440,35 +346,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                 ),
               ),
-              // Spacer(),
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.center,
-              //   children: [
-              //     Text(
-              //       'Already A User? ',
-              //       style: TextStyle(
-              //         color: Color(0xff636363),
-              //         fontSize: 12.sp,
-              //         fontWeight: FontWeight.w500,
-              //       ),
-              //     ),
-              //     TextButton(
-              //       onPressed: () {
-              //         Future.delayed(Duration(seconds: 1), () {
-              //           Navigator.pushNamed(context, '/login_screen');
-              //         });
-              //       },
-              //       child: Text(
-              //         'Login',
-              //         style: TextStyle(
-              //           color: Color(0xffFFCA27),
-              //           fontWeight: FontWeight.w500,
-              //           fontSize: 14.sp,
-              //         ),
-              //       ),
-              //     ),
-              //   ],
-              // ),
             ],
           ),
         ),
@@ -485,8 +362,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   bool checkData() {
     if (_nameEditingController.text.isNotEmpty &&
         _mobileEditingController.text.isNotEmpty &&
-        _passwordEditingController.text.isNotEmpty &&
-        dropDownValue != null) {
+        _passwordEditingController.text.isNotEmpty) {
       return true;
     } else {
       return false;
@@ -496,8 +372,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   bool runRegisterButton() {
     if (_nameEditingController.text.isNotEmpty &&
         _mobileEditingController.text.isNotEmpty &&
-        _passwordEditingController.text.isNotEmpty &&
-        dropDownValue != null) {
+        _passwordEditingController.text.isNotEmpty) {
       return true;
     } else {
       return false;
@@ -507,9 +382,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
   Future<void> register() async {
     bool status = await AuthApiController().register(context, user: user);
     if (status) {
+      SharedPreferencesController().save(user: user);
       print(status);
-      Future.delayed(Duration(seconds: 1), () {
-        Navigator.pushReplacementNamed(context, '/main_screen');
+      Future.delayed(const Duration(seconds: 1), () {
+        Navigator.pushReplacementNamed(context, '/verification_screen');
       });
     }
   }
@@ -520,7 +396,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
     user.mobile = _mobileEditingController.text;
     user.password = _passwordEditingController.text;
     user.gender = _gender;
-    user.cityId = dropDownValue!;
+    user.cityId = cityId;
+    user.city = city;
     return user;
+  }
+
+  City get city {
+    City city = City();
+    city.nameEn = _city[cityId-1].nameEn;
+    city.nameAr = _city[cityId-1].nameAr;
+    return city;
   }
 }

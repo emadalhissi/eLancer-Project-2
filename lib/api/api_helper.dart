@@ -22,8 +22,9 @@ mixin ApiHelper {
       'Accept': 'application/json',
       'lang': SharedPreferencesController().checkLanguage,
     };
-    if(SharedPreferencesController().loggedIn)
+    if(SharedPreferencesController().loggedIn) {
       headers['Authorization'] = SharedPreferencesController().getToken;
+    }
     return headers;
   }
 }

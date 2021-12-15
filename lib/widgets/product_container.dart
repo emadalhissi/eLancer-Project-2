@@ -1,23 +1,17 @@
+import 'package:elancer_project_2/api/controllers/favorite_products_api_controller.dart';
+import 'package:elancer_project_2/models/api/product.dart';
+import 'package:elancer_project_2/screens/product_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ProductContainer extends StatefulWidget {
   ProductContainer({
     Key? key,
-    required this.imageUrl,
-    required this.title,
-    required this.description,
-    required this.price,
-    this.overal_rate = 0,
-    this.is_favorite = false,
+    required this.product,
   }) : super(key: key);
 
-  String imageUrl;
-  String title;
-  String description;
-  num price;
-  num overal_rate;
-  bool is_favorite;
+  Product product;
+
   @override
   State<ProductContainer> createState() => _ProductContainerState();
 }
@@ -27,139 +21,158 @@ class _ProductContainerState extends State<ProductContainer> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(vertical: 6.h, horizontal: 6.w),
-      child: Container(
-        height: 255.h,
-        width: 160.w,
-        alignment: Alignment.center,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(16.r),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.2),
-              spreadRadius: 2.r,
-              blurRadius: 2.r,
-              // offset: Offset(0, 6), // changes position of shadow
-            ),
-          ],
-        ),
-        child: Stack(
-          children: [
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 16.h, horizontal: 10.w),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    // color: Colors.red,
-                    width: 100.w,
-                    height: 100.h,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: NetworkImage(
-                          // 'https://smart-store.mr-dev.tech/storage/products/1638441397__product_image_1.jpg',
-                          widget.imageUrl,
+    return InkWell(
+      onTap: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ProductScreen(
+                product: widget.product,
+                // product: ,
+              ),
+            ));
+      },
+      child: Padding(
+        padding: EdgeInsets.symmetric(vertical: 6.h, horizontal: 6.w),
+        child: Container(
+          height: 255.h,
+          width: 160.w,
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(16.r),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.2),
+                spreadRadius: 2.r,
+                blurRadius: 2.r,
+                // offset: Offset(0, 6), // changes position of shadow
+              ),
+            ],
+          ),
+          child: Stack(
+            children: [
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 16.h, horizontal: 10.w),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      // color: Colors.red,
+                      width: 100.w,
+                      height: 100.h,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: NetworkImage(
+                            // 'https://smart-store.mr-dev.tech/storage/products/1638441397__product_image_1.jpg',
+                            // widget.imageUrl,
+                            widget.product.imageUrl,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  SizedBox(height: 16.h),
-                  Expanded(
-                    child: Text(
-                      widget.title,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        fontSize: 15.sp,
-                        fontWeight: FontWeight.w600,
-                        color: Color(0xff0B0B0B),
+                    SizedBox(height: 16.h),
+                    Expanded(
+                      child: Text(
+                        // widget.title,
+                        widget.product.nameEn,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          fontSize: 15.sp,
+                          fontWeight: FontWeight.w600,
+                          color: Color(0xff0B0B0B),
+                        ),
+                      ),
+                      flex: 0,
+                    ),
+                    SizedBox(height: 4.h),
+                    Expanded(
+                      child: Text(
+                        // widget.description,
+                        widget.product.infoEn,
+                        overflow: TextOverflow.fade,
                       ),
                     ),
-                    flex: 0,
-                  ),
-                  SizedBox(height: 4.h),
-                  Expanded(
-                    child: Text(
-                      widget.description,
-                      overflow: TextOverflow.fade,
-                    ),
-                  ),
-                  SizedBox(height: 5.h),
-                  Row(
-                    children: [
-                      Text(
-                        '\$${widget.price}',
-                        style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 16.sp,
+                    SizedBox(height: 5.h),
+                    Row(
+                      children: [
+                        Text(
+                          // '\$${widget.price}',
+                          '\$${widget.product.price}',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 16.sp,
+                            color: Color(0xffFFCA27),
+                          ),
+                        ),
+                        Spacer(),
+                        Text(
+                          // '${widget.overallRate}',
+                          '${widget.product.overalRate}',
+                          style: TextStyle(
+                            fontSize: 13.sp,
+                          ),
+                        ),
+                        Icon(
+                          Icons.star,
+                          size: 20.w,
                           color: Color(0xffFFCA27),
                         ),
-                      ),
-                      Spacer(),
-                      Text(
-                        '${widget.overal_rate}',
-                        style: TextStyle(
-                          fontSize: 13.sp,
-                        ),
-                      ),
-                      Icon(
-                        Icons.star,
-                        size: 20.w,
-                        color: Color(0xffFFCA27),
-                      ),
-                    ],
-                  ),
-                ],
+                      ],
+                    ),
+                  ],
+                ),
               ),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 16.h, horizontal: 8.w),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      InkWell(
-                        child: Icon(
-                          Icons.favorite,
-                          color: _isPressed ? Colors.red : Color(0xffB0B0B0),
-                          size: 20,
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 16.h, horizontal: 8.w),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        InkWell(
+                          child: Icon(
+                            Icons.favorite,
+                            color: _isPressed ? Colors.red : Color(0xffB0B0B0),
+                            size: 20,
+                          ),
+                          onTap: () {
+                            setState(
+                              () {
+                                _isPressed
+                                    ? _isPressed = false
+                                    : _isPressed = true;
+                              },
+                            );
+                            FavoriteProductsApiController()
+                                .changeFavorite(context, id: widget.product.id);
+                          },
                         ),
-                        onTap: () {
-                          setState(
-                            () {
-                              _isPressed
-                                  ? _isPressed = false
-                                  : _isPressed = true;
-                            },
-                          );
-                        },
-                      ),
-                      SizedBox(height: 10.h),
-                      InkWell(
-                        child: Icon(
-                          Icons.add_shopping_cart_sharp,
-                          size: 20,
-                          color: Color(0xffB0B0B0),
+                        SizedBox(height: 10.h),
+                        InkWell(
+                          child: Icon(
+                            Icons.add_shopping_cart_sharp,
+                            size: 20,
+                            color: Color(0xffB0B0B0),
+                          ),
                         ),
-                      ),
-                      SizedBox(height: 10.h),
-                      InkWell(
-                        child: Icon(
-                          Icons.share,
-                          size: 20,
-                          color: Color(0xffB0B0B0),
+                        SizedBox(height: 10.h),
+                        InkWell(
+                          child: Icon(
+                            Icons.share,
+                            size: 20,
+                            color: Color(0xffB0B0B0),
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            )
-          ],
+                      ],
+                    ),
+                  ],
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );

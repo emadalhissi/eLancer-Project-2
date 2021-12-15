@@ -11,12 +11,9 @@ class CityApiController with ApiHelper {
       url,
       headers: headers,
     );
-    // print(response.statusCode);
     if (response.statusCode == 200) {
       var cityJsonArray = jsonDecode(response.body)['list'] as List;
-      return cityJsonArray
-          .map((jsonObject) => City.fromJson(jsonObject))
-          .toList();
+      return cityJsonArray.map((obj) => City.fromJson(obj)).toList();
     }
     return [];
   }

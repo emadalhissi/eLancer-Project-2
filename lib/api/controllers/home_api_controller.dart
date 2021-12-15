@@ -8,7 +8,10 @@ import 'package:http/http.dart' as http;
 class HomeApiController with ApiHelper {
   Future<HomeResponse?> showHome() async {
     var url = Uri.parse(ApiSettings.home);
-    var response = await http.get(url, headers: headers);
+    var response = await http.get(
+      url,
+      headers: headers,
+    );
 
     if (response.statusCode == 200) {
       return HomeResponse.fromJson(jsonDecode(response.body)['data']);

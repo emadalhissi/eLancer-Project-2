@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:elancer_project_2/models/bn_models/bn_screen.dart';
 import 'package:elancer_project_2/screens/bn_screens/categories_screen.dart';
 import 'package:elancer_project_2/screens/bn_screens/favorites_screen.dart';
@@ -42,6 +44,8 @@ class _MainScreenState extends State<MainScreen> {
       // resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
       appBar: AppBar(
+        leading: Padding(padding: EdgeInsets.zero),
+        leadingWidth: 0,
         backgroundColor: Color(0xffFFCA27),
         title: Padding(
           padding: EdgeInsetsDirectional.only(start: 20.w),

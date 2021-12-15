@@ -1,7 +1,7 @@
 import 'package:elancer_project_2/models/api/city.dart';
 
 class User {
-  late int id;
+  late int id = 0; //TODO:
   late String name;
   late String? email;
   late String mobile;

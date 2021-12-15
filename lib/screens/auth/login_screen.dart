@@ -1,4 +1,5 @@
 import 'package:elancer_project_2/api/controllers/auth_api_controller.dart';
+import 'package:elancer_project_2/shared_preferences/shared_preferences_controller.dart';
 import 'package:elancer_project_2/widgets/input_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -226,9 +227,8 @@ class _LoginScreenState extends State<LoginScreen> {
       password: _passwordEditingController.text,
     );
     if (status) {
-      print("LOGIN");
+      SharedPreferencesController().login();
       Future.delayed(const Duration(seconds: 1), () {
-        //TODO: check API info for user login
         Navigator.pushReplacementNamed(context, '/main_screen');
       });
     }

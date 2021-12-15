@@ -1,22 +1,28 @@
 import 'package:elancer_project_2/api/controllers/auth_api_controller.dart';
-import 'package:elancer_project_2/shared_preferences/shared_preferences_controller.dart';
 import 'package:elancer_project_2/widgets/code_text_field.dart';
-import 'package:elancer_project_2/widgets/input_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class VerificationScreen extends StatefulWidget {
-  const VerificationScreen({Key? key}) : super(key: key);
+class ResetPasswordScreen extends StatefulWidget {
+  const ResetPasswordScreen({
+    Key? key,
+    required this.mobile,
+  }) : super(key: key);
+
+  final String mobile;
 
   @override
-  _VerificationScreenState createState() => _VerificationScreenState();
+  _ResetPasswordScreenState createState() => _ResetPasswordScreenState();
 }
 
-class _VerificationScreenState extends State<VerificationScreen> {
+class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
+  late TextEditingController _mobileEditingController;
   late TextEditingController _firstCodeTextController;
   late TextEditingController _secondCodeTextController;
   late TextEditingController _thirdCodeTextController;
   late TextEditingController _fourthCodeTextController;
+  late TextEditingController _passwordEditingController;
+  late TextEditingController _passwordConfirmationEditingController;
 
   late FocusNode _firstFocusNode;
   late FocusNode _secondFocusNode;
@@ -26,10 +32,14 @@ class _VerificationScreenState extends State<VerificationScreen> {
   @override
   void initState() {
     super.initState();
+    _mobileEditingController = TextEditingController(text: widget.mobile);
     _firstCodeTextController = TextEditingController();
     _secondCodeTextController = TextEditingController();
     _thirdCodeTextController = TextEditingController();
     _fourthCodeTextController = TextEditingController();
+    _passwordEditingController = TextEditingController();
+    _passwordConfirmationEditingController = TextEditingController();
+
     _firstFocusNode = FocusNode();
     _secondFocusNode = FocusNode();
     _thirdFocusNode = FocusNode();
@@ -38,10 +48,14 @@ class _VerificationScreenState extends State<VerificationScreen> {
 
   @override
   void dispose() {
+    _mobileEditingController.dispose();
     _firstCodeTextController.dispose();
     _secondCodeTextController.dispose();
     _thirdCodeTextController.dispose();
     _fourthCodeTextController.dispose();
+    _passwordEditingController.dispose();
+    _passwordConfirmationEditingController.dispose();
+
     _firstFocusNode.dispose();
     _secondFocusNode.dispose();
     _thirdFocusNode.dispose();
@@ -110,7 +124,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
                     ),
                     Spacer(flex: 1),
                     Text(
-                      'Verification',
+                      'Reset Password',
                       style: TextStyle(
                         fontSize: 18.sp,
                         fontWeight: FontWeight.w700,
@@ -120,14 +134,14 @@ class _VerificationScreenState extends State<VerificationScreen> {
                   ],
                 ),
               ),
-              SizedBox(height: 50.h),
+              SizedBox(height: 20.h),
               Container(
                 height: 120.h,
                 width: MediaQuery.of(context).size.width,
                 color: Colors.white,
                 child: Center(
                   child: Text(
-                    'We have sent the verification code to your mobile, please check your messages to confirm your account.',
+                    'Enter mobile number, reset code and new password.',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 16.sp,
@@ -137,10 +151,44 @@ class _VerificationScreenState extends State<VerificationScreen> {
                   ),
                 ),
               ),
-              SizedBox(height: 50.h),
+              // SizedBox(height: 50.h),
+              TextField(
+                controller: _mobileEditingController,
+                onChanged: (value) {
+                  setState(() {
+                    _mobileEditingController;
+                  });
+                },
+                decoration: InputDecoration(
+                  hintText: 'Mobile Number',
+                  hintStyle: TextStyle(
+                    fontSize: 16.sp,
+                    fontWeight: FontWeight.w500,
+                    color: Color(0xffB0B0B0),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Color(0xffB0B0B0),
+                      width: 1.w,
+                    ),
+                    borderRadius: BorderRadius.circular(15.r),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide:
+                        BorderSide(color: Color(0xff636363), width: 1.w),
+                    borderRadius: BorderRadius.circular(15.r),
+                  ),
+                  labelStyle: TextStyle(
+                    color: const Color(0xffA1A1A1),
+                    fontWeight: FontWeight.bold,
+                    fontSize: 13.sp,
+                  ),
+                ),
+              ),
+              SizedBox(height: 16.h),
               Row(
                 children: [
-                  Spacer(),
+                  // Spacer(),
                   CodeTextField(
                     textEditingController: _firstCodeTextController,
                     focusNode: _firstFocusNode,
@@ -150,7 +198,8 @@ class _VerificationScreenState extends State<VerificationScreen> {
                       }
                     },
                   ),
-                  SizedBox(width: 16.w),
+                  // SizedBox(width: 16.w),
+                  Spacer(),
                   CodeTextField(
                     textEditingController: _secondCodeTextController,
                     focusNode: _secondFocusNode,
@@ -162,7 +211,8 @@ class _VerificationScreenState extends State<VerificationScreen> {
                       }
                     },
                   ),
-                  SizedBox(width: 16.w),
+                  // SizedBox(width: 16.w),
+                  Spacer(),
                   CodeTextField(
                     textEditingController: _thirdCodeTextController,
                     focusNode: _thirdFocusNode,
@@ -174,7 +224,8 @@ class _VerificationScreenState extends State<VerificationScreen> {
                       }
                     },
                   ),
-                  SizedBox(width: 16.w),
+                  // SizedBox(width: 16.w),
+                  Spacer(),
                   CodeTextField(
                     textEditingController: _fourthCodeTextController,
                     focusNode: _fourthFocusNode,
@@ -184,36 +235,90 @@ class _VerificationScreenState extends State<VerificationScreen> {
                       }
                     },
                   ),
-                  Spacer(),
+                  // Spacer(),
                 ],
               ),
-              // SizedBox(height: 12),
-              // TextButton(
-              //   onPressed: () {
-              //     // TO-DO: SEND CODE AGAIN
-              //   },
-              //   child: Text(
-              //     'Resend another code',
-              //     style: TextStyle(
-              //       color: Color(0xff2D9CDB),
-              //       fontSize: 14.sp,
-              //       fontWeight: FontWeight.w500,
-              //     ),
-              //   ),
-              // ),
+              SizedBox(height: 16.h),
+              TextField(
+                obscureText: true,
+                controller: _passwordEditingController,
+                onChanged: (value) {
+                  setState(() {
+                    _passwordEditingController;
+                  });
+                },
+                decoration: InputDecoration(
+                  hintText: 'New Password',
+                  hintStyle: TextStyle(
+                    fontSize: 16.sp,
+                    fontWeight: FontWeight.w500,
+                    color: Color(0xffB0B0B0),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Color(0xffB0B0B0),
+                      width: 1.w,
+                    ),
+                    borderRadius: BorderRadius.circular(15.r),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide:
+                        BorderSide(color: Color(0xff636363), width: 1.w),
+                    borderRadius: BorderRadius.circular(15.r),
+                  ),
+                  labelStyle: TextStyle(
+                    color: const Color(0xffA1A1A1),
+                    fontWeight: FontWeight.bold,
+                    fontSize: 13.sp,
+                  ),
+                ),
+              ),
+              SizedBox(height: 16.h),
+              TextField(
+                obscureText: true,
+                controller: _passwordConfirmationEditingController,
+                onChanged: (value) {
+                  setState(() {
+                    _passwordConfirmationEditingController;
+                  });
+                },
+                decoration: InputDecoration(
+                  hintText: 'Password Confirmation',
+                  hintStyle: TextStyle(
+                    fontSize: 16.sp,
+                    fontWeight: FontWeight.w500,
+                    color: Color(0xffB0B0B0),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Color(0xffB0B0B0),
+                      width: 1.w,
+                    ),
+                    borderRadius: BorderRadius.circular(15.r),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide:
+                        BorderSide(color: Color(0xff636363), width: 1.w),
+                    borderRadius: BorderRadius.circular(15.r),
+                  ),
+                  labelStyle: TextStyle(
+                    color: const Color(0xffA1A1A1),
+                    fontWeight: FontWeight.bold,
+                    fontSize: 13.sp,
+                  ),
+                ),
+              ),
               Spacer(),
               ElevatedButton(
-                onPressed: runVerificationButton()
+                onPressed: runResetButton()
                     ? () {
-                        doActivate();
-                      }
+                  performReset();
+                }
                     : null,
                 child: Text(
-                  'Confirm',
+                  'Reset',
                   style: TextStyle(
-                    color: runVerificationButton()
-                        ? Color(0xff0B0B0B)
-                        : Colors.white,
+                    color: runResetButton() ? Color(0xff0B0B0B) : Colors.white,
                     fontSize: 16.sp,
                     fontWeight: FontWeight.w600,
                   ),
@@ -236,17 +341,20 @@ class _VerificationScreenState extends State<VerificationScreen> {
     );
   }
 
-  void performVerification() {
+  void performReset() {
     if (checkData()) {
-      doActivate();
+      reset();
     }
   }
 
   bool checkData() {
-    if (_firstCodeTextController.text.isNotEmpty &&
+    if (_mobileEditingController.text.isNotEmpty &&
+        _firstCodeTextController.text.isNotEmpty &&
         _secondCodeTextController.text.isNotEmpty &&
         _thirdCodeTextController.text.isNotEmpty &&
-        _fourthCodeTextController.text.isNotEmpty) {
+        _fourthCodeTextController.text.isNotEmpty &&
+        _passwordEditingController.text.isNotEmpty &&
+        _passwordConfirmationEditingController.text.isNotEmpty) {
       return true;
     } else {
       return false;
@@ -261,20 +369,26 @@ class _VerificationScreenState extends State<VerificationScreen> {
     return code;
   }
 
-  bool runVerificationButton() {
-    if (_firstCodeTextController.text.isNotEmpty &&
+  bool runResetButton() {
+    if (_mobileEditingController.text.isNotEmpty &&
+        _firstCodeTextController.text.isNotEmpty &&
         _secondCodeTextController.text.isNotEmpty &&
         _thirdCodeTextController.text.isNotEmpty &&
-        _fourthCodeTextController.text.isNotEmpty) {
+        _fourthCodeTextController.text.isNotEmpty &&
+        _passwordEditingController.text.isNotEmpty &&
+        _passwordConfirmationEditingController.text.isNotEmpty) {
       return true;
     } else {
       return false;
     }
   }
 
-  Future<void> doActivate() async {
-    bool status = await AuthApiController().activate(context,
-        mobile: SharedPreferencesController().getMobile, code: setCode());
+  Future<void> reset() async {
+    bool status = await AuthApiController().reset(context,
+        mobile: _mobileEditingController.text,
+        code: setCode(),
+        password: _passwordEditingController.text,
+        passwordConfirmation: _passwordConfirmationEditingController.text);
     if (status) {
       Future.delayed(const Duration(seconds: 1), () {
         Navigator.pushReplacementNamed(context, '/login_screen');

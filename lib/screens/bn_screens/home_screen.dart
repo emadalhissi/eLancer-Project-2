@@ -1,5 +1,6 @@
 import 'package:elancer_project_2/get/favorite_getx_controller.dart';
 import 'package:elancer_project_2/get/home_getx_controller.dart';
+import 'package:elancer_project_2/screens/product_screen.dart';
 import 'package:elancer_project_2/widgets/no_data_center.dart';
 import 'package:elancer_project_2/widgets/product_container.dart';
 import 'package:elancer_project_2/widgets/slider_image.dart';
@@ -151,6 +152,20 @@ class _HomeScreenState extends State<HomeScreen> {
                                 productType: ProductType.latest,
                                 index: index,
                               ),
+                              onPressed: () async {
+                                var product = controller
+                                    .homeResponse!.latestProducts[index];
+                                await Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => ProductScreen(product: product),
+                                    ));
+                                setState(() {
+                                  controller
+                                      .homeResponse!.latestProducts[index].isFavorite =
+                                      FavoriteProductsGetXController.to.isFavorite(product.id);
+                                });
+                              },
                             );
                           },
                           itemCount: 5,
@@ -214,6 +229,20 @@ class _HomeScreenState extends State<HomeScreen> {
                                   await favoriteProduct(
                                       productType: ProductType.famous,
                                       index: index),
+                              onPressed: () async {
+                                var product = controller
+                                    .homeResponse!.famousProducts[index];
+                                await Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => ProductScreen(product: product),
+                                    ));
+                                setState(() {
+                                  controller
+                                      .homeResponse!.famousProducts[index].isFavorite =
+                                      FavoriteProductsGetXController.to.isFavorite(product.id);
+                                });
+                              },
                             );
                           },
                           itemCount:

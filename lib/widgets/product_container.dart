@@ -10,24 +10,17 @@ class ProductContainer extends StatelessWidget {
     Key? key,
     required this.product,
     required this.favoriteProduct,
+    required this.onPressed,
   }) : super(key: key);
 
   final Product product;
   final void Function() favoriteProduct;
+  final void Function() onPressed;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => ProductScreen(
-                product: product,
-                // product: ,
-              ),
-            ));
-      },
+      onTap: onPressed,
       child: Padding(
         padding: EdgeInsets.symmetric(vertical: 6.h, horizontal: 6.w),
         child: Container(
@@ -131,7 +124,8 @@ class ProductContainer extends StatelessWidget {
                         InkWell(
                           child: Icon(
                             Icons.favorite,
-                            color: FavoriteProductsGetXController.to.isFavorite(product.id)
+                            color: FavoriteProductsGetXController.to
+                                    .isFavorite(product.id)
                                 ? Colors.red
                                 : Color(0xffB0B0B0),
                             size: 20,

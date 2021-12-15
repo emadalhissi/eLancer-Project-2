@@ -373,6 +373,7 @@ class _ProductScreenState extends State<ProductScreen> {
   }
 
   Future<void> favoriteProduct() async {
+    product!.isFavorite = FavoriteProductsGetXController.to.isFavorite(product!.id);
     bool status = await FavoriteProductsGetXController.to
         .updateFavorite(context: context, product: product!);
     if (status) {

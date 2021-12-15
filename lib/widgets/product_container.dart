@@ -1,23 +1,19 @@
 import 'package:elancer_project_2/api/controllers/favorite_products_api_controller.dart';
+import 'package:elancer_project_2/get/favorite_getx_controller.dart';
 import 'package:elancer_project_2/models/api/product.dart';
 import 'package:elancer_project_2/screens/product_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class ProductContainer extends StatefulWidget {
-  ProductContainer({
+class ProductContainer extends StatelessWidget {
+  const ProductContainer({
     Key? key,
     required this.product,
+    required this.favoriteProduct,
   }) : super(key: key);
 
-  Product product;
-
-  @override
-  State<ProductContainer> createState() => _ProductContainerState();
-}
-
-class _ProductContainerState extends State<ProductContainer> {
-  bool _isPressed = false;
+  final Product product;
+  final void Function() favoriteProduct;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +23,7 @@ class _ProductContainerState extends State<ProductContainer> {
             context,
             MaterialPageRoute(
               builder: (context) => ProductScreen(
-                product: widget.product,
+                product: product,
                 // product: ,
               ),
             ));
@@ -67,7 +63,7 @@ class _ProductContainerState extends State<ProductContainer> {
                           image: NetworkImage(
                             // 'https://smart-store.mr-dev.tech/storage/products/1638441397__product_image_1.jpg',
                             // widget.imageUrl,
-                            widget.product.imageUrl,
+                            product.imageUrl,
                           ),
                         ),
                       ),
@@ -76,7 +72,7 @@ class _ProductContainerState extends State<ProductContainer> {
                     Expanded(
                       child: Text(
                         // widget.title,
-                        widget.product.nameEn,
+                        product.nameEn,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
                           fontSize: 15.sp,
@@ -90,7 +86,7 @@ class _ProductContainerState extends State<ProductContainer> {
                     Expanded(
                       child: Text(
                         // widget.description,
-                        widget.product.infoEn,
+                        product.infoEn,
                         overflow: TextOverflow.fade,
                       ),
                     ),
@@ -99,7 +95,7 @@ class _ProductContainerState extends State<ProductContainer> {
                       children: [
                         Text(
                           // '\$${widget.price}',
-                          '\$${widget.product.price}',
+                          '\$${product.price}',
                           style: TextStyle(
                             fontWeight: FontWeight.w600,
                             fontSize: 16.sp,
@@ -109,7 +105,7 @@ class _ProductContainerState extends State<ProductContainer> {
                         Spacer(),
                         Text(
                           // '${widget.overallRate}',
-                          '${widget.product.overalRate}',
+                          '${product.overalRate}',
                           style: TextStyle(
                             fontSize: 13.sp,
                           ),
@@ -135,23 +131,15 @@ class _ProductContainerState extends State<ProductContainer> {
                         InkWell(
                           child: Icon(
                             Icons.favorite,
-                            color: _isPressed ? Colors.red : Color(0xffB0B0B0),
+                            color: FavoriteProductsGetXController.to.isFavorite(product.id)
+                                ? Colors.red
+                                : Color(0xffB0B0B0),
                             size: 20,
                           ),
-                          onTap: () {
-                            setState(
-                              () {
-                                _isPressed
-                                    ? _isPressed = false
-                                    : _isPressed = true;
-                              },
-                            );
-                            FavoriteProductsApiController()
-                                .changeFavorite(context, id: widget.product.id);
-                          },
+                          onTap: favoriteProduct,
                         ),
                         SizedBox(height: 10.h),
-                        InkWell(
+                        const InkWell(
                           child: Icon(
                             Icons.add_shopping_cart_sharp,
                             size: 20,
@@ -159,7 +147,7 @@ class _ProductContainerState extends State<ProductContainer> {
                           ),
                         ),
                         SizedBox(height: 10.h),
-                        InkWell(
+                        const InkWell(
                           child: Icon(
                             Icons.share,
                             size: 20,

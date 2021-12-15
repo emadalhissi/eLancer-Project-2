@@ -14,10 +14,6 @@ class FavoritesScreen extends StatefulWidget {
 }
 
 class _FavoritesScreenState extends State<FavoritesScreen> {
-
-  FavoriteProductsGetXController _favoriteProductsGetXController =
-      Get.put(FavoriteProductsGetXController());
-
   @override
   void initState() {
     super.initState();
@@ -33,15 +29,13 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
         top: 24.h,
         bottom: 0,
       ),
-      child: GetBuilder<FavoriteProductsGetXController>(
+      child: GetX<FavoriteProductsGetXController>(
         builder: (controller) {
           if (controller.loading) {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          } else if (controller.favoriteProductsResponse.isNotEmpty) {
+            return Center(child: CircularProgressIndicator());
+          } else if (controller.favoriteProducts.isNotEmpty) {
             return ListView.builder(
-              itemCount: controller.favoriteProductsResponse.length,
+              itemCount: controller.favoriteProducts.length,
               itemBuilder: (context, index) {
                 return Padding(
                   padding: EdgeInsets.symmetric(vertical: 6.h, horizontal: 6.w),
@@ -64,7 +58,8 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                     child: Stack(
                       children: [
                         Padding(
-                          padding: EdgeInsets.symmetric(vertical: 16.h, horizontal: 10.w),
+                          padding: EdgeInsets.symmetric(
+                              vertical: 16.h, horizontal: 10.w),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -76,7 +71,8 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                                   color: Colors.red,
                                   image: DecorationImage(
                                     image: NetworkImage(
-                                        controller.favoriteProductsResponse[index]!.imageUrl,
+                                      controller
+                                          .favoriteProducts[index].imageUrl,
                                     ),
                                   ),
                                 ),
@@ -84,7 +80,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                               SizedBox(height: 16.h),
                               Expanded(
                                 child: Text(
-                                  controller.favoriteProductsResponse[index]!.nameEn,
+                                  controller.favoriteProducts[index].nameEn,
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyle(
                                     fontSize: 15.sp,
@@ -97,7 +93,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                               SizedBox(height: 4.h),
                               Expanded(
                                 child: Text(
-                                  controller.favoriteProductsResponse[index]!.infoEn,
+                                  controller.favoriteProducts[index].infoEn,
                                   overflow: TextOverflow.fade,
                                 ),
                               ),
@@ -105,7 +101,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                               Row(
                                 children: [
                                   Text(
-                                    '\$ ${controller.favoriteProductsResponse[index]!.price}',
+                                    '\$ ${controller.favoriteProducts[index].price}',
                                     style: TextStyle(
                                       fontWeight: FontWeight.w600,
                                       fontSize: 16.sp,
@@ -114,7 +110,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                                   ),
                                   Spacer(),
                                   Text(
-                                    '${controller.favoriteProductsResponse[index]!.productRate}',
+                                    '${controller.favoriteProducts[index].productRate}',
                                     style: TextStyle(
                                       fontSize: 13.sp,
                                     ),
@@ -130,7 +126,8 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsets.symmetric(vertical: 16.h, horizontal: 8.w),
+                          padding: EdgeInsets.symmetric(
+                              vertical: 16.h, horizontal: 8.w),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.stretch,
                             children: [
@@ -138,20 +135,13 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                                 crossAxisAlignment: CrossAxisAlignment.end,
                                 children: [
                                   InkWell(
-                                    child: Icon(
+                                    child: const Icon(
                                       Icons.favorite,
-                                      // color: _isPressed ? Colors.red : Color(0xffB0B0B0),
+                                      color: Colors.red,
                                       size: 20,
                                     ),
-                                    onTap: () {
-                                      setState(
-                                            () {
-                                          // _isPressed
-                                          //     ? _isPressed = false
-                                          //     : _isPressed = true;
-                                        },
-                                      );
-                                    },
+                                    onTap: () async => await favoriteProduct(
+                                        controller.favoriteProducts[index]),
                                   ),
                                   SizedBox(height: 10.h),
                                   InkWell(
@@ -186,5 +176,10 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
         },
       ),
     );
+  }
+
+  Future<void> favoriteProduct(Product product) async {
+    bool status = await FavoriteProductsGetXController.to.updateFavorite(context: context, product: product);
+    setState(() {});
   }
 }

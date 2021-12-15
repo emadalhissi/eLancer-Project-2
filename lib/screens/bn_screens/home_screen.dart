@@ -1,3 +1,4 @@
+import 'package:elancer_project_2/get/favorite_getx_controller.dart';
 import 'package:elancer_project_2/get/home_getx_controller.dart';
 import 'package:elancer_project_2/widgets/no_data_center.dart';
 import 'package:elancer_project_2/widgets/product_container.dart';
@@ -5,6 +6,8 @@ import 'package:elancer_project_2/widgets/slider_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+
+enum ProductType { latest, famous }
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -20,6 +23,8 @@ class _HomeScreenState extends State<HomeScreen> {
   int _sliderCurrentPage = 0;
   int _latestProductsCurrentPage = 0;
 
+  FavoriteProductsGetXController _favoriteProductsGetXController =
+      Get.put(FavoriteProductsGetXController());
   HomeGetXController _homeGetxController = Get.put(HomeGetXController());
 
   @override
@@ -48,9 +53,7 @@ class _HomeScreenState extends State<HomeScreen> {
       child: GetBuilder<HomeGetXController>(
         builder: (controller) {
           if (controller.loading) {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
+            return Center(child: CircularProgressIndicator());
           } else if (controller.homeResponse != null) {
             return ListView(
               children: [
@@ -141,7 +144,13 @@ class _HomeScreenState extends State<HomeScreen> {
                         child: GridView.builder(
                           itemBuilder: (BuildContext context, index) {
                             return ProductContainer(
-                              product: controller.homeResponse!.latestProducts[index],
+                              product: controller
+                                  .homeResponse!.latestProducts[index],
+                              favoriteProduct: () async =>
+                                  await favoriteProduct(
+                                productType: ProductType.latest,
+                                index: index,
+                              ),
                             );
                           },
                           itemCount: 5,
@@ -199,14 +208,19 @@ class _HomeScreenState extends State<HomeScreen> {
                         child: GridView.builder(
                           itemBuilder: (BuildContext context, index) {
                             return ProductContainer(
-                              product: controller.homeResponse!.famousProducts[index],
+                              product: controller
+                                  .homeResponse!.famousProducts[index],
+                              favoriteProduct: () async =>
+                                  await favoriteProduct(
+                                      productType: ProductType.famous,
+                                      index: index),
                             );
                           },
-                          itemCount: controller
-                              .homeResponse!.famousProducts.length,
+                          itemCount:
+                              controller.homeResponse!.famousProducts.length,
                           scrollDirection: Axis.horizontal,
                           gridDelegate:
-                          SliverGridDelegateWithMaxCrossAxisExtent(
+                              SliverGridDelegateWithMaxCrossAxisExtent(
                             maxCrossAxisExtent: 290.h,
                             mainAxisExtent: 156.w,
                             crossAxisSpacing: 20,
@@ -225,5 +239,18 @@ class _HomeScreenState extends State<HomeScreen> {
         },
       ),
     );
+  }
+
+  Future<void> favoriteProduct(
+      {required ProductType productType, required int index}) async {
+    var product = productType == ProductType.famous
+        ? _homeGetxController.homeResponse!.famousProducts[index]
+        : _homeGetxController.homeResponse!.latestProducts[index];
+
+    product.isFavorite =
+        FavoriteProductsGetXController.to.isFavorite(product.id);
+    await FavoriteProductsGetXController.to
+        .updateFavorite(context: context, product: product);
+    setState(() {});
   }
 }

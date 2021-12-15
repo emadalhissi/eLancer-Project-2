@@ -1,4 +1,5 @@
 import 'package:elancer_project_2/api/controllers/product_api_controller.dart';
+import 'package:elancer_project_2/get/favorite_getx_controller.dart';
 import 'package:elancer_project_2/models/api/images.dart';
 import 'package:elancer_project_2/models/api/product.dart';
 import 'package:elancer_project_2/widgets/big_product_image_container.dart';
@@ -35,7 +36,6 @@ class _ProductScreenState extends State<ProductScreen> {
       'The Cloud Collection recalls the peaceful and close memories of Vietnamese souls for a slow way of life to enjoy in the midst of modern life. As the name implies, the collection is inspired by rattan materi.';
 
   late PageController _pageController;
-  bool _isPressed = false;
 
   int _currentPage = 0;
   int _image1 = 0;
@@ -285,19 +285,14 @@ class _ProductScreenState extends State<ProductScreen> {
                                         ],
                                       ),
                                       child: IconButton(
-                                        onPressed: () {
-                                          setState(
-                                            () {
-                                              _isPressed
-                                                  ? _isPressed = false
-                                                  : _isPressed = true;
-                                            },
-                                          );
-                                        },
+                                        onPressed: () async =>
+                                            await favoriteProduct(),
                                         splashRadius: 1,
                                         icon: Icon(
                                           Icons.favorite,
-                                          color: _isPressed
+                                          color: FavoriteProductsGetXController
+                                                  .to
+                                                  .isFavorite(product!.id)
                                               ? Colors.red
                                               : Color(0xffB0B0B0),
                                           size: 25,
@@ -375,5 +370,13 @@ class _ProductScreenState extends State<ProductScreen> {
         },
       ),
     );
+  }
+
+  Future<void> favoriteProduct() async {
+    bool status = await FavoriteProductsGetXController.to
+        .updateFavorite(context: context, product: product!);
+    if (status) {
+      setState(() {});
+    }
   }
 }

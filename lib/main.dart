@@ -90,10 +90,10 @@ class MyMaterialApp extends StatelessWidget {
         '/contact_screen': (context) => const ContactScreen(),
         '/settings_screen': (context) => const SettingsScreen(),
         '/about_developer_screen': (context) => const AboutDeveloperScreen(),
-        //-------------------------------Settingd-------------------------------------
+        //-------------------------------Setting-------------------------------------
         '/change_password_screen': (context) => const ChangePasswordScreen(),
         //-------------------------------OTHERS-------------------------------------
-        '/forget_password_screen': (context) => const ChangePasswordScreen(),
+        '/forget_password_screen': (context) => const ForgetPasswordScreen(),
       },
       supportedLocales: const [
         Locale('ar'),

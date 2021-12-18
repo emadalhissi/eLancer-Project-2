@@ -1,6 +1,7 @@
 import 'package:elancer_project_2/api/controllers/contact_api_controller.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ContactScreen extends StatefulWidget {
   const ContactScreen({Key? key}) : super(key: key);
@@ -33,7 +34,7 @@ class _ContactScreenState extends State<ContactScreen> {
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: Text(
-          'Contact Us',
+          AppLocalizations.of(context)!.contactUsScreen_screenMainTitle,
           style: TextStyle(color: Colors.black),
         ),
         centerTitle: true,
@@ -89,7 +90,7 @@ class _ContactScreenState extends State<ContactScreen> {
                   });
                 },
                 decoration: InputDecoration(
-                  hintText: 'Subject',
+                  hintText: AppLocalizations.of(context)!.contactUsScreen_subject,
                   hintStyle: TextStyle(
                     fontSize: 16.sp,
                     fontWeight: FontWeight.w500,
@@ -124,7 +125,7 @@ class _ContactScreenState extends State<ContactScreen> {
                 },
                 maxLines: 7,
                 decoration: InputDecoration(
-                  hintText: 'Message',
+                  hintText: AppLocalizations.of(context)!.contactUsScreen_message,
                   hintStyle: TextStyle(
                     fontSize: 16.sp,
                     fontWeight: FontWeight.w500,
@@ -157,7 +158,7 @@ class _ContactScreenState extends State<ContactScreen> {
                       }
                     : null,
                 child: Text(
-                  'Send',
+                  AppLocalizations.of(context)!.contactUsScreen_send,
                   style: TextStyle(
                     color: runSendButton() ? Color(0xff0B0B0B) : Colors.white,
                     fontSize: 16.sp,

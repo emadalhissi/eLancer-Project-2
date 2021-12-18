@@ -1,8 +1,10 @@
 import 'package:elancer_project_2/api/controllers/faq_api_controller.dart';
 import 'package:elancer_project_2/models/api/faq.dart';
+import 'package:elancer_project_2/shared_preferences/shared_preferences_controller.dart';
 import 'package:elancer_project_2/widgets/no_data_center.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class FAQScreen extends StatefulWidget {
   const FAQScreen({Key? key}) : super(key: key);
@@ -26,7 +28,7 @@ class _FAQScreenState extends State<FAQScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'FAQ',
+          AppLocalizations.of(context)!.faqScreen_screenMainTitle,
           style: TextStyle(color: Colors.black),
         ),
         centerTitle: true,
@@ -107,7 +109,9 @@ class _FAQScreenState extends State<FAQScreen> {
                           child: Column(
                             children: [
                               Text(
-                                _faqList[index].questionEn,
+                                SharedPreferencesController().checkLanguage == 'en'
+                                    ? _faqList[index].questionEn
+                                    : _faqList[index].questionAr,
                                 style: TextStyle(
                                   color: Color(0xff0B0B0B),
                                   fontSize: 16.sp,
@@ -116,7 +120,10 @@ class _FAQScreenState extends State<FAQScreen> {
                               ),
                               Divider(height: 30.h),
                               Text(
-                                _faqList[index].answerEn,
+
+                                SharedPreferencesController().checkLanguage == 'en'
+                                    ? _faqList[index].answerEn
+                                    : _faqList[index].answerAr,
                                 style: TextStyle(
                                   color: Color(0xff636363),
                                   fontSize: 15.sp,

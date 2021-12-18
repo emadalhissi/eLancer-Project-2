@@ -1,6 +1,7 @@
 import 'package:elancer_project_2/api/controllers/auth_api_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ChangePasswordScreen extends StatefulWidget {
   const ChangePasswordScreen({Key? key}) : super(key: key);
@@ -33,6 +34,49 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          AppLocalizations.of(context)!.changePasswordScreen_screenMainTitle,
+          style: TextStyle(color: Colors.black),
+        ),
+        centerTitle: true,
+        toolbarHeight: 80.h,
+        backgroundColor: Colors.white,
+        elevation: 0,
+        leadingWidth: 90.w,
+        leading: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 24),
+          child: Container(
+            width: 44.w,
+            height: 44.h,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              shape: BoxShape.circle,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.2),
+                  spreadRadius: 5.r,
+                  blurRadius: 7.r,
+                  offset: Offset(0, 3), // changes position of shadow
+                ),
+              ],
+            ),
+            child: IconButton(
+              onPressed: () {
+                Future.delayed(Duration(seconds: 1), () {
+                  Navigator.pop(context);
+                });
+              },
+              splashRadius: 1,
+              icon: Icon(
+                Icons.arrow_back_ios_sharp,
+                color: Color(0xffB0B0B0),
+              ),
+            ),
+          ),
+        ),
+      ),
+      backgroundColor: Colors.white,
       resizeToAvoidBottomInset: false,
       body: Padding(
         padding: EdgeInsets.only(
@@ -46,55 +90,6 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
-              Container(
-                alignment: Alignment.center,
-                color: Colors.white,
-                height: 44.h,
-                child: Row(
-                  children: [
-                    Container(
-                      width: 44.w,
-                      height: 44.h,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        shape: BoxShape.circle,
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.2),
-                            spreadRadius: 5.r,
-                            blurRadius: 7.r,
-                            offset: Offset(0, 3), // changes position of shadow
-                          ),
-                        ],
-                      ),
-                      child: IconButton(
-                        onPressed: () {
-                          Future.delayed(Duration(seconds: 1), () {
-                            Navigator.pop(context);
-                          });
-                        },
-                        splashRadius: 1,
-                        icon: Image(
-                          image: AssetImage('images/left_arrow.png'),
-                          width: 10.w,
-                          height: 15.h,
-                          fit: BoxFit.contain,
-                        ),
-                      ),
-                    ),
-                    Spacer(flex: 1),
-                    Text(
-                      'Change Password',
-                      style: TextStyle(
-                        fontSize: 18.sp,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                    Spacer(flex: 2),
-                  ],
-                ),
-              ),
-              SizedBox(height: 50.h),
               TextField(
                 controller: _currentPasswordEditingController,
                 onChanged: (value) {
@@ -103,7 +98,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                   });
                 },
                 decoration: InputDecoration(
-                  hintText: 'Current Password',
+                  hintText: AppLocalizations.of(context)!.changePasswordScreen_currentPassword,
                   hintStyle: TextStyle(
                     fontSize: 16.sp,
                     fontWeight: FontWeight.w500,
@@ -137,7 +132,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                   });
                 },
                 decoration: InputDecoration(
-                  hintText: 'New Password',
+                  hintText: AppLocalizations.of(context)!.changePasswordScreen_newPassword,
                   hintStyle: TextStyle(
                     fontSize: 16.sp,
                     fontWeight: FontWeight.w500,
@@ -171,7 +166,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                   });
                 },
                 decoration: InputDecoration(
-                  hintText: 'Repeat Password',
+                  hintText: AppLocalizations.of(context)!.changePasswordScreen_repeatPassword,
                   hintStyle: TextStyle(
                     fontSize: 16.sp,
                     fontWeight: FontWeight.w500,
@@ -204,7 +199,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                       }
                     : null,
                 child: Text(
-                  'Change',
+                  AppLocalizations.of(context)!.changePasswordScreen_change,
                   style: TextStyle(
                     color: runChangeButton() ? Color(0xff0B0B0B) : Colors.white,
                     fontSize: 16.sp,

@@ -2,6 +2,7 @@ import 'package:elancer_project_2/api/controllers/sub_category_api_controller.da
 import 'package:elancer_project_2/models/api/category.dart';
 import 'package:elancer_project_2/models/api/sub_category.dart';
 import 'package:elancer_project_2/screens/sub_category_products_screen.dart';
+import 'package:elancer_project_2/shared_preferences/shared_preferences_controller.dart';
 import 'package:elancer_project_2/widgets/no_data_center.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -38,7 +39,7 @@ class _SubCategoriesScreenState extends State<SubCategoriesScreen> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text(
-          '',
+          AppLocalizations.of(context)!.subCategoriesScreen_screenMainTitle,
           style: TextStyle(color: Colors.black),
         ),
         centerTitle: true,
@@ -139,7 +140,9 @@ class _SubCategoriesScreenState extends State<SubCategoriesScreen> {
                               ),
                               Spacer(),
                               Text(
-                                _subCategoryList[index].nameEn,
+                                SharedPreferencesController().checkLanguage == 'en'
+                                    ? _subCategoryList[index].nameEn
+                                    : _subCategoryList[index].nameAr,
                                 style: TextStyle(
                                   color: Color(0xff0B0B0B),
                                   fontSize: 16.sp,

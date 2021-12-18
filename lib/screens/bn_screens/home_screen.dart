@@ -7,6 +7,7 @@ import 'package:elancer_project_2/widgets/slider_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 enum ProductType { latest, famous }
 
@@ -67,7 +68,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'New collection',
+                        AppLocalizations.of(context)!.homeScreen_sliderTitle,
                         style: TextStyle(
                           color: Color(0xff0B0B0B),
                           fontSize: 18.sp,
@@ -118,26 +119,26 @@ class _HomeScreenState extends State<HomeScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            'Latest Products',
+                            AppLocalizations.of(context)!.homeScreen_latestProductsTitle,
                             style: TextStyle(
                               color: Color(0xff0B0B0B),
                               fontSize: 18.sp,
                               fontWeight: FontWeight.w600,
                             ),
                           ),
-                          TextButton(
-                            onPressed: () {
-                              // TODO: add navigator to latest products screen
-                            },
-                            child: Text(
-                              'More',
-                              style: TextStyle(
-                                color: Color(0xffFFCA27),
-                                fontWeight: FontWeight.w500,
-                                fontSize: 12.sp,
-                              ),
-                            ),
-                          ),
+                          // TextButton(
+                          //   onPressed: () {
+                          //     // TODO: add navigator to latest products screen
+                          //   },
+                          //   child: Text(
+                          //     'More',
+                          //     style: TextStyle(
+                          //       color: Color(0xffFFCA27),
+                          //       fontWeight: FontWeight.w500,
+                          //       fontSize: 12.sp,
+                          //     ),
+                          //   ),
+                          // ),
                         ],
                       ),
                       SizedBox(height: 12.h),
@@ -196,26 +197,26 @@ class _HomeScreenState extends State<HomeScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            'Famous Products',
+                            AppLocalizations.of(context)!.homeScreen_famousProductsTitle,
                             style: TextStyle(
                               color: Color(0xff0B0B0B),
                               fontSize: 18.sp,
                               fontWeight: FontWeight.w600,
                             ),
                           ),
-                          TextButton(
-                            onPressed: () {
-                              Navigator.pushNamed(context, '/main_screen');
-                            },
-                            child: Text(
-                              'More',
-                              style: TextStyle(
-                                color: Color(0xffFFCA27),
-                                fontWeight: FontWeight.w500,
-                                fontSize: 12.sp,
-                              ),
-                            ),
-                          ),
+                          // TextButton(
+                          //   onPressed: () {
+                          //     Navigator.pushNamed(context, '/main_screen');
+                          //   },
+                          //   child: Text(
+                          //     'More',
+                          //     style: TextStyle(
+                          //       color: Color(0xffFFCA27),
+                          //       fontWeight: FontWeight.w500,
+                          //       fontSize: 12.sp,
+                          //     ),
+                          //   ),
+                          // ),
                         ],
                       ),
                       SizedBox(height: 12.h),

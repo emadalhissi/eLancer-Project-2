@@ -65,7 +65,7 @@ class _MenuScreenState extends State<MenuScreen> {
                 },
               ),
               MenuScreenListTile(
-                title: 'Contact Us',
+                title: AppLocalizations.of(context)!.menuScreen_contactUs,
                 icon: Icons.local_phone,
                 onTab: () {
                   Navigator.pushNamed(

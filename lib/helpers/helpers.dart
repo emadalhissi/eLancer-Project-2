@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 mixin Helpers {
-  void showSnackBar({
-    required BuildContext context,
+  void show_SnackBar(
+    BuildContext context, {
     required String message,
     bool error = false,
   }) {
@@ -11,7 +11,12 @@ mixin Helpers {
         content: Text(message),
         backgroundColor: error ? Colors.red : Colors.green,
         behavior: SnackBarBehavior.floating,
-        duration: const Duration(seconds: 2),
+        duration: const Duration(seconds: 4),
+        margin: EdgeInsets.only(
+          bottom: MediaQuery.of(context).size.height - 100,
+          right: 20,
+          left: 20,
+        ),
       ),
     );
   }

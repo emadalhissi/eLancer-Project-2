@@ -229,6 +229,7 @@ class _LoginScreenState extends State<LoginScreen> {
     if (status) {
       SharedPreferencesController().login();
       Future.delayed(const Duration(seconds: 1), () {
+        SharedPreferencesController().setFirstVisit();
         Navigator.pushReplacementNamed(context, '/main_screen');
       });
     }

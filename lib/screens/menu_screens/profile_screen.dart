@@ -3,6 +3,7 @@ import 'package:elancer_project_2/widgets/no_data_center.dart';
 import 'package:elancer_project_2/widgets/profile_list_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -17,7 +18,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Profile',
+          AppLocalizations.of(context)!.profileScreen_screenMainTitle,
           style: TextStyle(color: Colors.black),
         ),
         centerTitle: true,
@@ -78,27 +79,27 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
               SizedBox(height: 40.h),
               ProfileListTile(
-                title: 'Name',
+                title: AppLocalizations.of(context)!.profileScreen_nameTitle,
                 subTitle: SharedPreferencesController().getName,
                 icon: Icons.account_circle,
               ),
               SizedBox(height: 5.h),
               ProfileListTile(
-                title: 'Mobile',
+                title: AppLocalizations.of(context)!.profileScreen_mobileTitle,
                 subTitle: SharedPreferencesController().getMobile,
                 icon: Icons.local_phone,
               ),
               SizedBox(height: 5.h),
               ProfileListTile(
-                title: 'Gender',
+                title: AppLocalizations.of(context)!.profileScreen_genderTitle,
                 subTitle: SharedPreferencesController().getGender == 'M'
-                    ? 'Male'
-                    : 'Female',
+                    ? AppLocalizations.of(context)!.profileScreen_genderMale
+                    : AppLocalizations.of(context)!.profileScreen_genderFemale,
                 icon: Icons.person,
               ),
               SizedBox(height: 5.h),
               ProfileListTile(
-                title: 'City',
+                title: AppLocalizations.of(context)!.profileScreen_cityTitle,
                 subTitle: SharedPreferencesController().checkLanguage == 'en'
                     ? SharedPreferencesController().getCityEn
                     : SharedPreferencesController().getCityAr,

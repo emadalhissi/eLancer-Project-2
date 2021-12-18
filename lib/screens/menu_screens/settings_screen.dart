@@ -13,7 +13,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Settings',
+          AppLocalizations.of(context)!.settingsScreen_screenMainTitle,
           style: TextStyle(color: Colors.black),
         ),
         centerTitle: true,
@@ -76,7 +76,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       builder: (BuildContext context) {
                         return AlertDialog(
                           content: Container(
-                            height: 200,
+                            // height: 200,
                             width: MediaQuery.of(context).size.width,
                             decoration: BoxDecoration(
                               color: Colors.white,
@@ -107,7 +107,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                       Align(
                                         child: Padding(
                                           padding: const EdgeInsets.all(8.0),
-                                          child: Text('Choose Language'),
+                                          child: Text(AppLocalizations.of(context)!.settingsScreen_chooseLanguage,),
                                         ),
                                         alignment: Alignment.center,
                                       ),
@@ -130,7 +130,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                                   radius: 30,
                                                 ),
                                                 const SizedBox(height: 10),
-                                                Text('Arabic'),
+                                                Text(AppLocalizations.of(context)!.settingsScreen_languageArabic,),
                                               ],
                                             ),
                                             // onTap: () => changeLang(),
@@ -161,7 +161,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                                   radius: 30,
                                                 ),
                                                 const SizedBox(height: 10),
-                                                Text('English'),
+                                                Text(AppLocalizations.of(context)!.settingsScreen_languageEnglish,),
                                               ],
                                             ),
                                             // onTap: () => changeLang(),
@@ -204,7 +204,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   ),
                   contentPadding: const EdgeInsets.symmetric(horizontal: 5),
                   title: Text(
-                    'Language',
+                    AppLocalizations.of(context)!.settingsScreen_language,
                     style: TextStyle(
                       color: const Color(0xff636363),
                       fontSize: 16.sp,
@@ -228,7 +228,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   ),
                   contentPadding: const EdgeInsets.symmetric(horizontal: 5),
                   title: Text(
-                    'Change Password',
+                    AppLocalizations.of(context)!.settingsScreen_changePassword,
                     style: TextStyle(
                       color: const Color(0xff636363),
                       fontSize: 16.sp,

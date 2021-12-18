@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:elancer_project_2/api/api_helper.dart';
 import 'package:elancer_project_2/api/api_settings.dart';
+import 'package:elancer_project_2/helpers/helpers.dart';
 import 'package:elancer_project_2/models/api/base_api_object_response.dart';
 import 'package:elancer_project_2/models/api/base_api_response.dart';
 import 'package:elancer_project_2/models/api/user.dart';
@@ -9,7 +10,7 @@ import 'package:elancer_project_2/shared_preferences/shared_preferences_controll
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-class AuthApiController with ApiHelper {
+class AuthApiController with ApiHelper, Helpers {
   Future<bool> login(
     BuildContext context, {
     required String mobile,
@@ -69,10 +70,11 @@ class AuthApiController with ApiHelper {
       headers: headers,
     );
     if (response.statusCode == 201) {
+      var code = jsonDecode(response.body)['code'];
       var baseApiResponse =
           BaseApiObjectResponse<User>.fromJson(jsonDecode(response.body));
       showSnackBar(context, message: baseApiResponse.message);
-      var code = jsonDecode(response.body)['code'];
+      show_SnackBar(context, message: 'Verification code: $code');
       print(code);
       return true;
     } else if (response.statusCode == 400) {

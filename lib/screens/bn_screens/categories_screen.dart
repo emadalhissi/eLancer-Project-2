@@ -1,9 +1,12 @@
 import 'package:elancer_project_2/api/controllers/category_api_controller.dart';
 import 'package:elancer_project_2/models/api/category.dart';
 import 'package:elancer_project_2/screens/sub_categories_screen.dart';
+import 'package:elancer_project_2/shared_preferences/shared_preferences_controller.dart';
 import 'package:elancer_project_2/widgets/no_data_center.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get/get.dart';
 
 class CategoriesScreen extends StatefulWidget {
@@ -47,15 +50,17 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                   child: InkWell(
                     onTap: () {
                       Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => SubCategoriesScreen(category: _categoryList[index]),
-                          ));
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => SubCategoriesScreen(
+                              category: _categoryList[index]),
+                        ),
+                      );
                     },
                     child: Container(
                       margin: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
                       width: MediaQuery.of(context).size.width,
-                      height: 230.h,
+                      // height: 230.h,
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(15.r),
@@ -71,6 +76,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                       child: Padding(
                         padding: const EdgeInsets.all(16),
                         child: Column(
+                          mainAxisSize: MainAxisSize.max,
                           children: [
                             Container(
                               width: MediaQuery.of(context).size.width,
@@ -87,41 +93,44 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                             ),
                             SizedBox(height: 12.h),
                             Text(
-                              _categoryList[index].nameEn,
+                              SharedPreferencesController().checkLanguage == 'en'
+                                  ? _categoryList[index].nameEn
+                                  : _categoryList[index].nameAr,
                               style: TextStyle(
                                 color: Color(0xff0B0B0B),
                                 fontSize: 16.sp,
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
-                            SizedBox(height: 8.h),
+                            SizedBox(height: 6.h),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Row(
                                   children: [
-                                    Icon(
-                                      Icons.visibility,
-                                      size: 20,
-                                      color: Color(0xffFFCA27),
-                                    ),
-                                    Text(
-                                      ' ' + '1652',
-                                      style: TextStyle(
-                                        fontSize: 12.sp,
-                                        fontWeight: FontWeight.w500,
-                                        color: Color(0xffFFCA27),
-                                      ),
-                                    ),
+                                    // Icon(
+                                    //   Icons.visibility,
+                                    //   size: 20,
+                                    //   color: Color(0xffFFCA27),
+                                    // ),
+                                    // Text(
+                                    //   ' ' + '1652',
+                                    //   style: TextStyle(
+                                    //     fontSize: 12.sp,
+                                    //     fontWeight: FontWeight.w500,
+                                    //     color: Color(0xffFFCA27),
+                                    //   ),
+                                    // ),
                                   ],
                                 ),
                                 Text(
                                   '${_categoryList[index].productsCount}' +
-                                      ' Products',
+                                      ' ${AppLocalizations.of(context)!.categoriesScreen_productsNumber}',
                                   style: TextStyle(
                                     fontSize: 12.sp,
                                     fontWeight: FontWeight.w500,
                                     color: Color(0xffB0B0B0),
+                                    overflow: TextOverflow.fade
                                   ),
                                 ),
                               ],

@@ -1,6 +1,7 @@
 import 'package:elancer_project_2/api/controllers/favorite_products_api_controller.dart';
 import 'package:elancer_project_2/get/favorite_getx_controller.dart';
 import 'package:elancer_project_2/models/api/product.dart';
+import 'package:elancer_project_2/shared_preferences/shared_preferences_controller.dart';
 import 'package:elancer_project_2/widgets/no_data_center.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -68,7 +69,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                                 width: 100.w,
                                 height: 100.h,
                                 decoration: BoxDecoration(
-                                  color: Colors.red,
+                                  color: Colors.white,
                                   image: DecorationImage(
                                     image: NetworkImage(
                                       controller
@@ -80,7 +81,12 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                               SizedBox(height: 16.h),
                               Expanded(
                                 child: Text(
-                                  controller.favoriteProducts[index].nameEn,
+                                  SharedPreferencesController().checkLanguage ==
+                                          'en'
+                                      ? controller
+                                          .favoriteProducts[index].nameEn
+                                      : controller
+                                          .favoriteProducts[index].nameAr,
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyle(
                                     fontSize: 15.sp,
@@ -93,7 +99,12 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                               SizedBox(height: 4.h),
                               Expanded(
                                 child: Text(
-                                  controller.favoriteProducts[index].infoEn,
+                                  SharedPreferencesController().checkLanguage ==
+                                      'en'
+                                      ? controller
+                                      .favoriteProducts[index].infoEn
+                                      : controller
+                                      .favoriteProducts[index].infoAr,
                                   overflow: TextOverflow.fade,
                                 ),
                               ),
@@ -143,22 +154,22 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                                     onTap: () async => await favoriteProduct(
                                         controller.favoriteProducts[index]),
                                   ),
-                                  SizedBox(height: 10.h),
-                                  InkWell(
-                                    child: Icon(
-                                      Icons.add_shopping_cart_sharp,
-                                      size: 20,
-                                      color: Color(0xffB0B0B0),
-                                    ),
-                                  ),
-                                  SizedBox(height: 10.h),
-                                  InkWell(
-                                    child: Icon(
-                                      Icons.share,
-                                      size: 20,
-                                      color: Color(0xffB0B0B0),
-                                    ),
-                                  ),
+                                  // SizedBox(height: 10.h),
+                                  // InkWell(
+                                  //   child: Icon(
+                                  //     Icons.add_shopping_cart_sharp,
+                                  //     size: 20,
+                                  //     color: Color(0xffB0B0B0),
+                                  //   ),
+                                  // ),
+                                  // SizedBox(height: 10.h),
+                                  // InkWell(
+                                  //   child: Icon(
+                                  //     Icons.share,
+                                  //     size: 20,
+                                  //     color: Color(0xffB0B0B0),
+                                  //   ),
+                                  // ),
                                 ],
                               ),
                             ],
@@ -179,7 +190,8 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
   }
 
   Future<void> favoriteProduct(Product product) async {
-    bool status = await FavoriteProductsGetXController.to.updateFavorite(context: context, product: product);
+    bool status = await FavoriteProductsGetXController.to
+        .updateFavorite(context: context, product: product);
     setState(() {});
   }
 }

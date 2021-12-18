@@ -28,7 +28,7 @@ class _MainScreenState extends State<MainScreen> {
       //     title: AppLocalizations.of(context)!.productsScreen_screenMainTitle,
       //     widget: const ProductsScreen()),
       BnScreen(
-          title: 'Offers',
+          title: AppLocalizations.of(context)!.offersScreen_screenMainTitle,
           widget: const OffersScreen()),
       BnScreen(
           title: AppLocalizations.of(context)!.categoriesScreen_screenMainTitle,

@@ -6,7 +6,7 @@
 
     <application
         android:icon="@mipmap/ic_launcher"
-        android:label="elancer_project_2"
+        android:label="Bronea Store"
         android:usesCleartextTraffic="true">
         <activity
             android:name=".MainActivity"

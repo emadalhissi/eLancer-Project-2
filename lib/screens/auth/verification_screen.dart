@@ -277,6 +277,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
         mobile: SharedPreferencesController().getMobile, code: setCode());
     if (status) {
       Future.delayed(const Duration(seconds: 1), () {
+        SharedPreferencesController().setFirstVisit();
         Navigator.pushReplacementNamed(context, '/login_screen');
       });
     }

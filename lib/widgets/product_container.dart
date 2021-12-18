@@ -2,6 +2,7 @@ import 'package:elancer_project_2/api/controllers/favorite_products_api_controll
 import 'package:elancer_project_2/get/favorite_getx_controller.dart';
 import 'package:elancer_project_2/models/api/product.dart';
 import 'package:elancer_project_2/screens/product_screen.dart';
+import 'package:elancer_project_2/shared_preferences/shared_preferences_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -65,7 +66,9 @@ class ProductContainer extends StatelessWidget {
                     Expanded(
                       child: Text(
                         // widget.title,
-                        product.nameEn,
+                        SharedPreferencesController().checkLanguage == 'en'
+                            ? product.nameEn
+                            : product.nameAr,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
                           fontSize: 15.sp,
@@ -79,7 +82,9 @@ class ProductContainer extends StatelessWidget {
                     Expanded(
                       child: Text(
                         // widget.description,
-                        product.infoEn,
+                        SharedPreferencesController().checkLanguage == 'en'
+                            ? product.infoEn
+                            : product.infoAr,
                         overflow: TextOverflow.fade,
                       ),
                     ),
@@ -132,22 +137,22 @@ class ProductContainer extends StatelessWidget {
                           ),
                           onTap: favoriteProduct,
                         ),
-                        SizedBox(height: 10.h),
-                        const InkWell(
-                          child: Icon(
-                            Icons.add_shopping_cart_sharp,
-                            size: 20,
-                            color: Color(0xffB0B0B0),
-                          ),
-                        ),
-                        SizedBox(height: 10.h),
-                        const InkWell(
-                          child: Icon(
-                            Icons.share,
-                            size: 20,
-                            color: Color(0xffB0B0B0),
-                          ),
-                        ),
+                        // SizedBox(height: 10.h),
+                        // const InkWell(
+                        //   child: Icon(
+                        //     Icons.add_shopping_cart_sharp,
+                        //     size: 20,
+                        //     color: Color(0xffB0B0B0),
+                        //   ),
+                        // ),
+                        // SizedBox(height: 10.h),
+                        // const InkWell(
+                        //   child: Icon(
+                        //     Icons.share,
+                        //     size: 20,
+                        //     color: Color(0xffB0B0B0),
+                        //   ),
+                        // ),
                       ],
                     ),
                   ],

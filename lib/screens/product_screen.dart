@@ -2,6 +2,7 @@ import 'package:elancer_project_2/api/controllers/product_api_controller.dart';
 import 'package:elancer_project_2/get/favorite_getx_controller.dart';
 import 'package:elancer_project_2/models/api/images.dart';
 import 'package:elancer_project_2/models/api/product.dart';
+import 'package:elancer_project_2/shared_preferences/shared_preferences_controller.dart';
 import 'package:elancer_project_2/widgets/big_product_image_container.dart';
 import 'package:elancer_project_2/widgets/no_data_center.dart';
 import 'package:elancer_project_2/widgets/slider_image.dart';
@@ -9,6 +10,7 @@ import 'package:elancer_project_2/widgets/small_product_image_container.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ProductScreen extends StatefulWidget {
   const ProductScreen({
@@ -259,7 +261,9 @@ class _ProductScreenState extends State<ProductScreen> {
                                   children: [
                                     Expanded(
                                       child: Text(
-                                        widget.product.nameEn,
+                                        SharedPreferencesController().checkLanguage == 'en'
+                                            ? widget.product.nameEn
+                                            : widget.product.nameAr,
                                         // overflow: TextOverflow.fade,
                                         // maxLines: 2,
                                         style: TextStyle(
@@ -312,7 +316,7 @@ class _ProductScreenState extends State<ProductScreen> {
                                 ),
                                 SizedBox(height: 20.h),
                                 Text(
-                                  'Product Details',
+                                  AppLocalizations.of(context)!.productDetailsScreen_details,
                                   style: TextStyle(
                                     fontSize: 16.sp,
                                     fontWeight: FontWeight.w500,
@@ -321,7 +325,9 @@ class _ProductScreenState extends State<ProductScreen> {
                                 ),
                                 SizedBox(height: 12.h),
                                 Text(
-                                  widget.product.infoEn,
+                                  SharedPreferencesController().checkLanguage == 'en'
+                                      ? widget.product.infoEn
+                                      : widget.product.infoAr,
                                   style: TextStyle(
                                     fontSize: 12.sp,
                                     fontWeight: FontWeight.w500,
@@ -335,7 +341,7 @@ class _ProductScreenState extends State<ProductScreen> {
                                     // TODO: add navigator to cart screen
                                   },
                                   child: Text(
-                                    'Add to cart',
+                                    AppLocalizations.of(context)!.productDetailsScreen_addToCart,
                                     style: TextStyle(
                                       color: Color(0xff0B0B0B),
                                       fontSize: 16.sp,
